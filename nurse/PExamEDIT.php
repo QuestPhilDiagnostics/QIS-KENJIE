@@ -10,11 +10,8 @@ if (isset($_GET['id'])){
 $pe = new pe;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$pe = $pe->fetch_data($id);
-$trans = new trans;
-if (isset($_GET['id'])){
-    $id = $_GET['id'];
-    $trans = $trans->fetch_data($id);
+	$tid = $_GET['tid'];
+	$pe = $pe->fetch_data($id, $tid);
 
 ?>
 <html>
@@ -69,43 +66,32 @@ include_once('nursesidebar.php');
             <div class="card-header card-inverse card-info"><center><b>PATIENT INFORMATION</b></center></div>
             <div class="card-block">
             	<div class="row">
-					<div class="col-4">
-						<label>SR No.: </label><br>
+					<div class="col col-md-auto">
+						<label>Patient ID.: </label><br>
 						<input type="hidden" name="id" value="<?php echo $data['PatientID'] ?>">
 						<b><?php echo $data['PatientID'] ?></b>
 					</div>
-					<div class="col-4">
+					<div class="col col-md-auto">
+						<label>Transaction No.: </label><br>
+						<input type="hidden" name="tid" value="<?php echo $pe['TransactionID'] ?>">
+						<b><?php echo $pe['TransactionID'] ?></b>
+					</div>
+					<div class="col col-md-auto">
 						<label>Name:</label><br>
 						<input type="hidden" name="lasnam" value="<?php echo $data['LastName'] ?>">
 						<input type="hidden" name="firnam" value="<?php echo $data['FirstName'] ?>">
 						<input type="hidden" name="midnam" value="<?php echo $data['MiddleName'] ?>">
 						<p><b><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></p>
 					</div>
-					<div class="col-4">
+					<div class="col col-md-auto">
 						<label>Company Name: </label><br>
 						<input type="hidden" name="comnam" value="<?php echo $data['CompanyName'] ?>">
 						<p><b><?php echo $data['CompanyName'] ?></b></p>
 					</div>
-				</div>
-            </div>
-        </div>
-    </div>	
-</div>
-<div class="row">
-    <div class="col-md-10 offset-sm-1">
-        <div class="card" style="border-radius: 0px; margin-top: 10px;">
-            <div class="card-header card-inverse card-info"><center><b>PATIENT PACKAGE</b></center></div>
-            <div class="card-block">
-            	<div class="row">
-            		<div class="col col-md-auto">
-            			Package: <p><b><?php echo $trans['PackName'] ?></b></p>
-            		</div>
-            		<div class="col col-md-auto">
-            			Description: <p><b><?php echo $trans['PackList'] ?></b></p>
-            		</div>
-            		<div class="col col-lg-2">
-            			Transaction: <p><b><?php echo $trans['trans_type'] ?></b></p>
-            		</div>
+					<div class="col col-md-auto">
+						<label>Gender:</label><br>
+						<p><b><?php echo $data['Gender'] ?></b></p>
+					</div>
 				</div>
             </div>
         </div>
@@ -250,4 +236,4 @@ include_once('nursesidebar.php');
 </div>
 </body>
 </html>
-<?php }}} ?>
+<?php }} ?>

@@ -6,7 +6,7 @@ $trans = $trans->fetch_all();
 ?>
 <html>
 	<head>
-		<title>HMO Lists</title>
+		<title>HMO Account</title>
 		<script type="text/javascript" src="../source/CDN/jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="../source/CDN/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="../source/CDN/dataTables.bootstrap4.min.js"></script>
@@ -23,12 +23,12 @@ $trans = $trans->fetch_all();
 		<link rel="stylesheet" type="text/css" href="../source/CDN/buttons.bootstrap4.min.css	">
 	</head>
 <body>
-<?php
-include_once('cashsidebar.php');
-?>
-<div class="container" style="margin-top: 10px;">
-	<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
- <thead>
+ 	<?php
+	include_once('accountsidebar.php');
+	?>
+	<div class="container">
+	<table id="example" class="table table-striped table-bordered" style="width:100%">
+					<thead>
 						<th>Date/Time</th>
 						<th>HMO</th>
 						<th>ID</th>
@@ -45,62 +45,65 @@ include_once('cashsidebar.php');
 						<?php foreach  ($trans as $trans) {  ?>
 					<tr>
 							<td>
-								<?php echo $trans['date']?>
+								<?php echo $trans['TransactionDate']?>
 							</td>
 							<td>
-								<?php echo $trans['bill_to']?>
+								<?php echo $trans['Biller']?>
 							</td>
 							<td>
-								<?php echo $trans['No']?>
+								<?php echo $trans['TransactionID']?>
 							</td>
 							<td>
-								<?php echo $trans['trans_type']?>
+								<?php echo $trans['TransactionType']?>
 							</td>
 							<td>
-								<?php echo $trans['id']?>
+								<?php echo $trans['PatientID']?>
 							</td>	
 							<td nowrap>
-								<?php echo $trans['lasnam']?>,<?php echo $trans['firnam']?> <?php echo $trans['midnam']?> 
+								<?php echo $trans['LastName']?>,<?php echo $trans['FirstName']?> <?php echo $trans['MiddleName']?> 
 							</td>
 							<td>
-								<?php echo $trans['cust_comnam']?>
+								<?php echo $trans['CompanyName']?>
 							</td>
 							<td>
-								<?php echo $trans['cust_age']?>/<?php echo $trans['cust_gen']?>
+								<?php echo $trans['Age']?>/<?php echo $trans['Gender']?>
 							</td>
 							<td>
-								<?php echo $trans['connum']?>
+								<?php echo $trans['ContactNo']?>
 							</td>
 							<td nowrap>
-								<b><?php echo $trans['PackName']?></b> (<?php echo $trans['PackList']?>)
+								<b><?php echo $trans['ItemName']?></b> (<?php echo $trans['ItemDescription']?>)
 							</td>
 							<td nowrap> 
-								<button type="button" class="btn btn-primary" onclick="document.location = 'ForREPrint.php?id=<?php echo $trans['id']?>';">Reprint Receipt</button>
-								<button type="button" class="btn btn-primary" onclick="document.location = 'HMOEdit.php?id=<?php echo $trans['id']?>';">UPDATE</button>
+								<button type="button" class="btn btn-primary" onclick="document.location = 'ForREPrintAccount.php?id=<?php echo $trans['PatientID']?>&tid=<?php echo $trans['TransactionID']?>';">Reprint Receipt</button>
+								<button type="button" class="btn btn-primary" onclick="document.location = 'HMOEdit.php?id=<?php echo $trans['PatientID']?>&tid=<?php echo $trans['TransactionID']?>';">UPDATE</button>
 							</td>
 
 
 							<?php  }	?> 
 					</tr>
-
     </table>
-</div>
+
+		
 
 
-<script>
-	$(document).ready(function() {
-    var table = $('#example').DataTable( {
-        lengthChange: false,
-        scrollY:       500,
-        scrollCollapse: true,
-        "scrollX": true,
-        paging:         false,
-        buttons: ['excel', 'pdf', 'colvis' ]
-    } );
- 
-    table.buttons().container()
-        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-} );	
-</script>
+
+
+	</div>
+	<script>
+		$(document).ready(function() {
+	    var table = $('#example').DataTable( {
+	        lengthChange: false,
+	        scrollY:       500,
+	        scrollCollapse: true,
+	        scrollX: true,
+	        paging:         false,
+	        buttons: ['excel', 'pdf', 'colvis' ]
+	    } );
+	 
+	    table.buttons().container()
+	        .appendTo( '#example_wrapper .col-md-8:eq(0)' );
+	} );	
+	</script>
 </body>
 </html>

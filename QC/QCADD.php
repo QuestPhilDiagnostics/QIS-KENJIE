@@ -1,5 +1,5 @@
 <?php
-$conn=mysqli_connect("localhost","root","","dbtest");
+$conn=mysqli_connect("localhost","root","","dbqis");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -7,17 +7,14 @@ if (mysqli_connect_errno())
   }
 
 $id=$_POST['id'];
-$result = $conn->query("SELECT * FROM qpd_class WHERE id ='".$id."'");
+$tid=$_POST['tid'];
+$result = $conn->query("SELECT * FROM qpd_class WHERE PatientID ='".$id."'");
 if($result->num_rows == 0) 
 {
-$comnam=$_POST['comnam'];
-$firnam=$_POST['firnam'];
-$midnam=$_POST['midnam'];
-$lasnam=$_POST['lasnam'];
 $qc=$_POST['qc'];
 $date=date("Y-m-d H:i:s");
 
-$sqlinsert = "INSERT INTO qpd_class(id, comnam, firnam, midnam, lasnam, qc, date) VALUES('$id', '$comnam', '$firnam', '$midnam', '$lasnam', '$qc', '$date')";
+$sqlinsert = "INSERT INTO qpd_class(PatientID, TransactionID, QC, CreationDate) VALUES('$id', '$tid', '$qc', '$date')";
 
   if ($conn->query($sqlinsert) === TRUE) 
   {
@@ -36,7 +33,7 @@ else
   $date=date("Y-m-d H:i:s");
 
 
-  $sqlupdate="UPDATE qpd_class SET qc='$qc', date='$date'  WHERE id ='$id' ";
+  $sqlupdate="UPDATE qpd_class SET QC='$qc', CreationDate='$date'  WHERE PatientID ='$id' ";
 
       if ($conn->query($sqlupdate) === TRUE) 
       {

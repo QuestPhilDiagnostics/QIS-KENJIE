@@ -52,8 +52,8 @@ include_once('nursesidebar.php');
             <div class="card-block">
             	<div class="row">
 					<div class="col">
-					<form action="PatientInfoUpdateUPDATE.php" method="post" autocomplete="off" enctype="multipart/form-data">
-					<input type="hidden" value="<?php echo $data['id']?>" name="id"/>
+					<form action="PatientInfoUpdateUPDATE.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+					<input type="hidden" value="<?php echo $data['PatientID']?>" name="id"/>
 						<label for=""> Company Name:</label>
 						<input type="text"  name="comnam" class="form-control" value="<?php echo $data['CompanyName']?>"  required />
 						<label for="">Applied Position:</label>

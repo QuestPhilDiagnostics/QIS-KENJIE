@@ -1,8 +1,10 @@
 <?php
 include_once('../connection.php');
-include_once('../classes/patient.php');
-$patient = new Patient;
-$patients = $patient->fetch_all();
+include_once('../classes/trans.php');
+$trans = new trans;
+$patients = $trans->fetch_all();
+
+
 ?>
 <html>
 	<head>
@@ -33,14 +35,15 @@ $patients = $patient->fetch_all();
 	</style>
 <body>
 <?php
-include_once('medsidebar.php');
+include_once('labsidebar.php');
 ?>
 <div class="container" style="margin-top: 10px;">
 <center><p>LABORATORY INDUSTRIAL</p></center>
 	<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         			<thead>
-                    	<th>ID</th>
-                    	<th nowrap>Last Update</th>
+                    	<th nowrap>Transaction No.</th>
+                    	<th>Patient ID</th>
+                    	<th nowrap>Transaction Date</th>
 						<th>Company Name</th>
 						<th nowrap>Patient Name</th>
 						<th>Action</th>
@@ -49,10 +52,13 @@ include_once('medsidebar.php');
 					
 					<tr>
 							<td>
+								<?php echo $patient['TransactionID']?>
+							</td>
+							<td>
 								<?php echo $patient['PatientID']?>
 							</td>
 							<td>
-								<?php echo $patient['CreationDate']?>
+								<?php echo $patient['TransactionDate']?>
 							</td>
 							<td>
 								<?php echo $patient['CompanyName']?>
@@ -61,8 +67,8 @@ include_once('medsidebar.php');
 								<?php echo $patient['LastName']?>,<?php echo $patient['FirstName']?> <?php echo $patient['MiddleName']?> 
 							</td>
 							<td nowrap> 
-								<button type="button" class="btn btn-primary" onclick="document.location = 'LabIndustrialVIEW.php?id=<?php echo $patient['PatientID']?>';">VIEW RECORD</button>
-								<button type="button" class="btn btn-primary" onclick="document.location = 'LabIndustrialADD.php?id=<?php echo $patient['PatientID']?>';">ADD RECORD</button>
+								<button type="button" class="btn btn-primary" onclick="document.location = 'LabIndustrialVIEW.php?id=<?php echo $patient['PatientID']?>&tid=<?php echo $patient['TransactionID']?>';">VIEW RECORD</button>
+								<button type="button" class="btn btn-primary" onclick="document.location = 'LabIndustrialADD.php?id=<?php echo $patient['PatientID']?>&tid=<?php echo $patient['TransactionID']?>';">ADD RECORD</button>
 							</td>
 
 					</tr>

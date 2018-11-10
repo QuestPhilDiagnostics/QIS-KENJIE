@@ -13,7 +13,7 @@ $stmt = $user_home->runQuery("SELECT * FROM tbl_users WHERE userID=:uid");
 $stmt->execute(array(":uid"=>$_SESSION['userSession']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if ($row['class'] != "MedTech"){
+  if ($row['class'] != "Laboratory"){
 
     $user_home->redirect('../doctor/doctor.php');
  }
@@ -25,7 +25,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>MedTech Index</title>
+    <title>Laboratory</title>
 <link href="../source/bootstrap4/css/bootstrap.css" rel="stylesheet"/>
     <link href="../source/bootstrap4/css/bootstrap.min.css" rel="stylesheet"/>
     <script type="javascript" href="../source/bootstrap3.3.7/js/bootstrap.js"></script>
@@ -53,7 +53,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
  
 </style>
 <body>
-<?php include_once('medsidebar.php');
+<?php include_once('labsidebar.php');
 ?>
 <div class="container-fluid">
 

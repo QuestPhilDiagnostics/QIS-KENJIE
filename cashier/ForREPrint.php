@@ -6,31 +6,27 @@
 </script>
 <?php
 include_once('../connection.php');
-include_once('../classes/patient.php');
-include_once('../classes/trans.php');
+include_once('../classes/transRePrint.php');
 $trans = new trans;
 if (isset($_GET['id'])){
-	$id1 = $_GET['id'];
-	$data = $trans->fetch_data($id1);
-
-$pat = new Patient;
-if (isset($_GET['patid'])){
-	$id2 = $_GET['patid'];
-	$data1 = $pat->fetch_data($id2);
+	$id = $_GET['id'];
+	$tid = $_GET['tid'];
+	$data = $trans->fetch_data($id, $tid);
 ?>
 <html>
 	<head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Account Receipt</title>
+    <title>Cash Receipt</title>
     <link rel="stylesheet" href="style.css">
 	<link href="../source/bootstrap4/css/bootstrap.min.css" media="all" rel="stylesheet"/>
 	</head>
 	<style type="text/css">
 	body
 		{
-			font-family: "Agency FB";
-			font-size: 16px;
+			/*font-family: "Agency FB";*/
+			font-family: "Century Gothic";
+			font-size: 14px;
 			padding: 0px;
 			margin: 0px;
 		}
@@ -88,23 +84,23 @@ if (isset($_GET['patid'])){
 		<br>
 		<div class="row">
 			<div class="col-2 text-right">Name:</div>
-			<div class="col-8" style="padding-left: 0px; font-size: 14px; font-size: 19px;"><b><?php echo $data1['LastName'] ?>, <?php echo $data1['FirstName'] ?> <?php echo $data1['MiddleName'] ?></b></div>
+			<div class="col-8" style="padding-left: 0px; font-size: 14px; font-size: 19px;"><b><?php echo $data['LastName'] ?>, <?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></div>
 		</div>
 		<div class="row">
 			<div class="col-2 text-right">Company:</div>
-			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data1['CompanyName'] ?></b></div>
+			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data['CompanyName'] ?></b></div>
 		</div>
 		<div class="row">
 			<div class="col-2 text-right">Age/Gen:</div>
-			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data1['Age'] ?>/<?php echo $data1['Gender'] ?></b></div>
+			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data['Age'] ?>/<?php echo $data['Gender'] ?></b></div>
 		</div>
 		<div class="row">
 			<div class="col-2 text-right">DOB:</div>
-			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data1['Birthdate'] ?></b></div>
+			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data['Birthdate'] ?></b></div>
 		</div>
 		<?php 
 		if ($data['Referral']=="") {
-			$reff = $data1['CompanyName'];
+			$reff = $data['CompanyName'];
 		} else {
 			$reff = $data['Referral'];
 		}
@@ -174,7 +170,7 @@ if (isset($_GET['patid'])){
 				</tr>
 			</table>
 		</div>
-		<hr>
+		<hr style="width:80%;">
 		<div class="row">
 			<table style="width: 80%;">
 				<tr class="tab"></tr>
@@ -186,22 +182,37 @@ if (isset($_GET['patid'])){
 				<tr>
 					<td style="width: 20%"></td>
 					<td style="width: 40%">Discount:</td>
-					<td style="width: 20%">₱:<?php echo $data['Discount'] ?></td>
+					<td style="width: 20%">₱:<?php 
+					$Disc = explode(",",$data['Discount']);
+					$DiscA = array_sum($Disc);
+					echo $DiscA;
+					?></td>
 				</tr>
 				<tr>
 					<td style="width: 20%"></td>
 					<td style="width: 40%;font-size: 18px; font-weight: bolder;">Grand Total:</td>
-					<td style="width: 20%;font-size: 18px; font-weight: bolder;">₱:<?php echo $data['GrandTotal'] ?></td>
+					<td style="width: 20%;font-size: 18px; font-weight: bolder;">₱:<?php 
+					$Grand = explode(",",$data['GrandTotal']);
+					$tots = array_sum($Grand);
+					echo $tots;
+					?></td>
 				</tr>
 				<tr>
 					<td style="width: 20%"></td>
 					<td style="width: 40%">Amount Tendered:</td>
-					<td style="width: 20%">₱:<?php echo $data['PaidIn'] ?></td>
+					<td style="width: 20%">₱:<?php 
+					$cash = explode(",",$data['PaidIn']);
+					echo $cash[0];
+					?>
+					</td>
 				</tr>
 				<tr>
 					<td style="width: 20%"></td>
-					<td style="width: 40%;font-size: 18px; font-weight: bolder;">Given Change:</td>
-					<td style="width: 20%;font-size: 18px; font-weight: bolder;">₱:<?php echo $data['PaidOut'] ?></td>
+					<td style="width: 40%;font-size: 18px; font-weight: bolder;">Given Change:</td>					
+					<td style="width: 20%;font-size: 18px; font-weight: bolder;">₱:<?php 
+					$change = explode(",",$data['PaidOut']);
+					echo $change[0];
+					?></td>
 				</tr>
 			</table>
 		</div>
@@ -219,6 +230,6 @@ if (isset($_GET['patid'])){
 
 	</div>
 </div>
-<?php }}?>
+<?php }?>
 </body>
 </html>

@@ -69,7 +69,45 @@ include_once('qcsidebar.php');
 						<OPTION selected="" value="">Select Company..</OPTION>
 		                <?php 
 		                include_once('../summarycon.php');
-		                $select = "SELECT DISTINCT comnam FROM qpd_form ORDER BY comnam ASC";
+		                $select = "SELECT DISTINCT CompanyName FROM qpd_patient ORDER BY CompanyName ASC";
+				        $result = mysqli_query($con, $select);
+				        $i=0;
+				        while($row = mysqli_fetch_array($result))
+				        {
+				        	echo "<option value='$row[0]'> $row[0] </option>";
+						}?>
+			            </SELECT>
+					</div>
+				</div>
+				<center><input type="submit" class="btn btn-primary" value="Generate" name="gen"></center> 
+			</form>
+            </div>
+        </div>
+    </div>	
+</div>
+<div class="row">
+    <div class="col-md-10 offset-sm-1">
+        <div class="card" style="border-radius: 0px; margin-top: 10px;">
+            <div class="card-header card-inverse card-info"><center><b>Generate Summary Report in Excel</b></center></div>
+            <div class="card-block">
+            <form action="APESummary.php" method="get" target="_blank">
+				<b><center>NOTE: This section is for Generating EXCEL FILE through browser for daily updating per company.</center></b>
+            	<div class="row">
+					<div class="col">
+	            		<label>Start Date</label>
+	                	<input class="form-control" type="text" name="SD" style="width: 300px; height: 50px; margin-left: 10px; margin-right: 20px;" class="form-control" placeholder="yyyy-mm-dd hh:mm:ss" required>
+		            </div>
+	            	<div class="col">
+	            		<label>End Date</label>
+	                	<input class="form-control" type="text" name="ED" style="width: 300px; height: 50px; margin-left: 10px; margin-right: 20px;" class="form-control" placeholder="yyyy-mm-dd hh:mm:ss" required>
+	            	</div>
+					<div class="col">
+						<label>Company Name:</label>
+		                <SELECT name="Company" style="width: 200px; height: 50px; margin-left: 10px; margin-right: 20px;" class="form-control" required>
+						<OPTION selected="" value="">Select Company..</OPTION>
+		                <?php 
+		                include_once('../summarycon.php');
+		                $select = "SELECT DISTINCT CompanyName FROM qpd_patient ORDER BY CompanyName ASC";
 				        $result = mysqli_query($con, $select);
 				        $i=0;
 				        while($row = mysqli_fetch_array($result))

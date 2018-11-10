@@ -79,7 +79,7 @@ $patients = $patient->fetch_all();
 </style>
 <body>
 <?php
-include_once('medsidebar.php');
+include_once('labsidebar.php');
 ?>
 <div class="col-md-10 offset-sm-1">
 	<div class="card card-info" style="border-radius: 0px; margin-top: 10px;">

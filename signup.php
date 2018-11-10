@@ -111,11 +111,12 @@ if(isset($_POST['btn-signup']))
      Please Choose:  
      <select name="class">
 		  <option value="Doctor">Doctor</option>
-		  <option value="Nurse">Nurse</option>
-		  <option value="Recep">Reception</option>
-		  <option value="MedTech">MedTech</option>
-		  <option value="RadTech">RadTech</option>
-		  <option value="Cashier">Cashier</option>
+		  <option value="Medical Services">Medical Services</option>
+		  <option value="Accounting">Accounting</option>
+		  <option value="Laboratory">Laboratory</option>
+		  <option value="Imaging">Imaging</option>
+		  <option value="CashierCASH">CashierCASH</option>
+		   <option value="CashierACCOUNT">CashierACCOUNT</option>
 		  <option value="Admin">Admin</option>
 	 </select>
 

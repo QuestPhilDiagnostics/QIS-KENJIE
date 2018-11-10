@@ -47,25 +47,25 @@ include_once('doctorsidebar.php');
 					
 					<tr>
 							<td>
-								<?php echo $qc['id']?>
+								<?php echo $qc['PatientID']?>
 							</td>
 							<td>
-								<?php echo $qc['date']?>
+								<?php echo $qc['TransactionDate']?>
 							</td>
 							<td>
-								<?php echo $qc['comnam']?>
+								<?php echo $qc['CompanyName']?>
 							</td>	
 							<td>
-								<?php echo $qc['lasnam']?>,<?php echo $qc['firnam']?> <?php echo $qc['midnam']?> 
+								<?php echo $qc['LastName']?>,<?php echo $qc['FirstName']?> <?php echo $qc['MiddleName']?> 
 							</td>
 							<td>
-								<?php echo $qc['Patclass']?>
+								<?php echo $qc['MedicalClass']?>
 							</td>
 							<td>
-								<?php echo $qc['ot']?>
+								<?php echo $qc['Notes']?>
 							</td>
 							<td>
-								<?php echo $qc['qc']?>
+								<?php echo $qc['QC']?>
 							</td>
 
 

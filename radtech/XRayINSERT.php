@@ -1,5 +1,5 @@
 <?php
-$conn=mysqli_connect("localhost","root","","dbtest");
+$conn=mysqli_connect("localhost","root","","dbqis");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -7,20 +7,20 @@ if (mysqli_connect_errno())
   }
 date_default_timezone_set('Asia/Manila');
 $id=$_POST['id'];
-$result = $conn->query("SELECT * FROM qpd_xray WHERE id ='".$id."'");
-if($result->num_rows == 0) 
-{
-$comnam=$_POST['comnam'];
-$firnam=$_POST['firnam'];
-$midnam=$_POST['midnam'];
-$lasnam=$_POST['lasnam'];
+$tid=$_POST['tid'];
 $com=$_POST['com'];
 $imp=$_POST['imp'];
 $rad=$_POST['rad'];
 $qa=$_POST['qa'];
 $date=date("Y-m-d H:i:s");
 
-$sqlinsert = "INSERT INTO qpd_xray(id, comnam, firnam, midnam, lasnam, com, imp, rad, qa, date) VALUES('$id', '$comnam', '$firnam', '$midnam','$lasnam', '$com','$imp', '$rad','$qa', '$date')";
+
+$sql = "SELECT * FROM qpd_xray WHERE PatientID ='$id' AND TransactionID = '$tid'";
+$result=mysqli_query($conn,$sql);
+if($rowcount=mysqli_num_rows($result) == 0) 
+{
+
+$sqlinsert = "INSERT INTO qpd_xray(PatientID, TransactionID, Comment, Impression, Radiologist, QA, CreationDate) VALUES('$id', '$tid', '$com','$imp', '$rad','$qa', '$date')"; 
 
   if ($conn->query($sqlinsert) === TRUE) 
   {

@@ -6,7 +6,7 @@ $trans = $trans->fetch_all();
 ?>
 <html>
 	<head>
-		<title>Transactions Lists</title>
+		<title>Transactions Lists Account</title>
 		<script type="text/javascript" src="../source/CDN/jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="../source/CDN/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="../source/CDN/dataTables.bootstrap4.min.js"></script>
@@ -27,19 +27,19 @@ $trans = $trans->fetch_all();
 include_once('accountsidebar.php');
 ?>
 <div class="container" style="margin-top: 10px;">
-	<table id="example" class="table table-striped table-bordered" cellspacing="0" width="80%">
- 					<thead>
+	<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+ <thead>
 						<th>Date/Time</th>
-						<th>Transaction No.</th>
+						<th>ID</th>
 						<th>Transaction Type</th>
-						<th>Patient ID</th>
+						<th>Transaction No.</th>
 						<th>Customer Name</th>
 						<th>Company</th>
 						<th>Age/Gender</th>
 						<th>Contact No.</th>
 						<th>Package</th>
 						<th>ACTION</th>
-					</thead>
+</thead>
 					
 						<?php foreach  ($trans as $trans) {  ?>
 					<tr>
@@ -55,7 +55,7 @@ include_once('accountsidebar.php');
 							<td>
 								<?php echo $trans['PatientID']?>
 							</td>	
-							<td >
+							<td nowrap>
 								<?php echo $trans['LastName']?>,<?php echo $trans['FirstName']?> <?php echo $trans['MiddleName']?> 
 							</td>
 							<td>
@@ -67,11 +67,11 @@ include_once('accountsidebar.php');
 							<td>
 								<?php echo $trans['ContactNo']?>
 							</td>
-							<td>
-								<b><?php echo $trans['ItemName']?></b> [<?php echo $trans['ItemDescription']?>]
+							<td nowrap>
+								<b><?php echo $trans['ItemName']?></b> (<?php echo $trans['ItemDescription']?>)
 							</td>
 							<td > 
-								<button type="button" class="btn btn-primary" onclick="document.location = 'ForREPrint.php?id=<?php echo $trans['TransactionID']?>&patid=<?php echo $trans['PatientID']?>';">Reprint Receipt</button>
+								<button type="button" class="btn btn-primary" onclick="document.location = 'ForREPrintAccount.php?id=<?php echo $trans['PatientID']?>&tid=<?php echo $trans['TransactionID']?>';">Reprint Receipt</button>
 							</td>
 
 
@@ -88,7 +88,7 @@ include_once('accountsidebar.php');
         lengthChange: false,
         scrollY:       500,
         scrollCollapse: true,
-        scrollX: true,
+        "scrollX": true,
         paging:         false,
         buttons: ['excel', 'pdf', 'colvis' ]
     } );

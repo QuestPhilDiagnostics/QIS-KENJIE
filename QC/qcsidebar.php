@@ -21,11 +21,20 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <link href="../source/bootstrap4/css/bootstrap.css" rel="stylesheet"/>
     <link href="../source/bootstrap4/css/bootstrap.min.css" rel="stylesheet"/>
-    <script type="javascript" href="../source/bootstrap3.3.7/js/bootstrap.js"></script>
-    <script type="javascript" href="../source/bootstrap3.3.7/js/bootstrap.min.js"> </script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <style type="text/css">
   .navbar-custom {
+    background-color: #2980b9;
+}
+  .navbar-nav a {
+    font-family: "Calibri";
+    font-size: 24px;
+    font-weight: bold;
+    color:#bdc3c7;
+  }
+
+    .navbar-custom {
     background-color: #2980b9;
 }
   .navbar-nav a {
@@ -34,6 +43,14 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
     font-weight: bold;
     color:#bdc3c7;
   }
+
+  .navbar{background:#2980B9;}
+.nav-item::after{content:'';display:block;width:0px;height:2px;background:#55D4FF;transition: 0.2s;}
+.nav-item:hover::after{width:100%;}
+.navbar-dark .navbar-nav .active > .nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show > .nav-link,.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover{color:#55D4FF;}
+.nav-link{padding:0px 5px;transition:0.2s;}
+.dropdown-item.active, .dropdown-item:active{color:#D4D4FF;}
+.dropdown-item:focus, .dropdown-item:hover{background:#55D4FF;}
 
 </style>
 <body>
@@ -47,23 +64,18 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
   </a>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="index.php" style="border-right: solid #7f8c8d 3px;">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="ListOfPatients.php" style="border-right: solid #7f8c8d 3px;">Patient Summary</a>
-      <a class="nav-item nav-link" href="QCMCList.php" style="border-right: solid #7f8c8d 3px;">QC</a>
-      <a class="nav-item nav-link" href="SummaryReport.php" style="border-right: solid #7f8c8d 3px;">Summary</a>
-      <a class="nav-item nav-link" href="PEList.php" style="border-right: solid #7f8c8d 3px;">PE Form</a>
-      <a class="nav-item nav-link" href="MCList.php" style="border-right: solid #7f8c8d 3px;">MedCert</a>
+      <a class="nav-item nav-link" href="index.php">          <i class="fas fa-home"></i>&nbsp;Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="ListOfPatients.php"> <i class="fas fa-user"></i>&nbsp;Patient Records</a>
+      <a class="nav-item nav-link" href="QCMCList.php">       <i class="fas fa-laptop"></i>&nbsp;QC</a>
+      <a class="nav-item nav-link" href="EmailResults.php">                  <i class="fas fa-share-square"></i>&nbsp;Email Results</a>
+      <a class="nav-item nav-link" href="SummaryReport.php">  <i class="fas fa-users"></i>&nbsp;Summary</a>
+      <a class="nav-item nav-link" href="PEList.php">         <i class="far fa-file"></i>&nbsp;PE Form</a>
+      <a class="nav-item nav-link" href="MCList.php">         <i class="far fa-file"></i>&nbsp;MedCert</a>
+      <a class="nav-item nav-link" href="../logout.php" style="margin-left: 300px;"><i class="fas fa-sign-out-alt"></i>&nbsp;LOGOUT</a>
     </div>
   </div>
-  <ul class="nav navbar-nav navbar-right">
-      <li><a href="../logout.php">LOGOUT</a></li>
-    </ul>
+  
 </nav>
-
-
-
-
-
 
 
 

@@ -29,8 +29,8 @@ if (isset($_GET['patid'])){
 	<style type="text/css">
 	body
 		{
-			font-family: "Agency FB";
-			font-size: 16px;
+			font-family: "Century Gothic";
+			font-size: 14px;
 			padding: 0px;
 			margin: 0px;
 		}
@@ -101,6 +101,10 @@ if (isset($_GET['patid'])){
 		<div class="row">
 			<div class="col-2 text-right">DOB:</div>
 			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data1['Birthdate'] ?></b></div>
+		</div>
+		<div class="row">
+			<div class="col-2 text-right">Contact:</div>
+			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data1['ContactNo'] ?></b></div>
 		</div>
 		<?php 
 		if ($data['Referral']=="") {

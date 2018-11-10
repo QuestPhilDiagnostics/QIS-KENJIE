@@ -1,22 +1,11 @@
 <?php
 include_once('../connection.php');
-include_once('../classes/transVal.php');
-include_once('../classes/qc.php');
-include_once('../classes/lab.php');
-$lab = new lab;
-if (isset($_GET['id'])){
-	$id = $_GET['id'];
-	$data = $lab->fetch_data($id);
-
-$qc = new qc;
-if (isset($_GET['id'])){
-	$id = $_GET['id'];
-	$data1 = $qc->fetch_data($id);
-
+include_once('../classes/labindustrial.php');
 $trans = new trans;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$trans = $trans->fetch_data($id);
+	$tid = $_GET['tid'];
+	$data = $trans->fetch_data($id, $tid);
 ?>
 <html>
 <head>
@@ -64,9 +53,9 @@ if (isset($_GET['id'])){
 
 </style>
 
-<body >
+<body>
 <?php
-include_once('medsidebar.php');
+include_once('labsidebar.php');
 ?>
 <center><p style="font-size: 36px; font-family: 'Century Gothic';">View Laboratory Results</p></center>
 <div class="container-fluid">
@@ -76,43 +65,32 @@ include_once('medsidebar.php');
             <div class="card-header card-inverse card-info"><center><b>PATIENT INFORMATION</b></center></div>
             <div class="card-block">
             	<div class="row">
+            		<div class="col col-md-auto">
+						<label>Patient ID.: </label><br>
+						<b><?php echo $data['PatientID'] ?></b>
+					</div>
 					<div class="col col-md-auto">
 						<label>SR No.: </label><br>
-						<b><?php echo $trans['id'] ?></b>
+						<b><?php echo $data['TransactionID'] ?></b>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
+						<label>Transaction Date: </label><br>
+						<b><?php echo $data['CreationDate'] ?></b>
+					</div>
+					<div class="col col-md-auto">
 						<label>Name:</label><br>
-						<p><b><?php echo $data['lasnam'] ?>,<?php echo $data['firnam'] ?> <?php echo $data['midnam'] ?></b></p>
+						<p><b><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></p>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
 						<label>Company Name: </label><br>
-						<p><b><?php echo $data['comnam'] ?></b></p>
+						<p><b><?php echo $data['CompanyName'] ?></b></p>
 					</div>
 				</div>
             </div>
         </div>
     </div>	
 </div>
-<div class="row">
-    <div class="col-md-10 offset-sm-1">
-        <div class="card" style="border-radius: 0px; margin-top: 10px;">
-            <div class="card-header card-inverse card-info"><center><b>PATIENT PACKAGE</b></center></div>
-            <div class="card-block">
-            	<div class="row">
-            		<div class="col col-md-auto">
-            			Package: <p><b><?php echo $trans['PackName'] ?></b></p>
-            		</div>
-            		<div class="col col-md-auto">
-            			Description: <p><b><?php echo $trans['PackList'] ?></b></p>
-            		</div>
-            		<div class="col col-lg-2">
-            			Transaction: <p><b><?php echo $trans['trans_type'] ?></b></p>
-            		</div>
-				</div>
-            </div>
-        </div>
-    </div>	
-</div>
+
 <div class="row">
     <div class="col-md-10 offset-sm-1">
         <div class="card" style="border-radius: 0px; margin-top: 10px;">
@@ -387,7 +365,7 @@ include_once('medsidebar.php');
 	            		<center><b><?php echo $data['Received'] ?></b></center>
 	            	</div>
 	            	<div class="col">
-	            		<center><b><?php echo $data1['qc'] ?></b></center>
+	            		<center><b><?php echo $data['QC'] ?></b></center>
 
 	            	</div>
 	            	<div class="col">
@@ -406,13 +384,13 @@ include_once('medsidebar.php');
 	            	</div>
 				</div>
 				<hr>
-				<center><button type="button" class="btn btn-primary" onclick="document.location = 'LabIndustrialEDIT.php?id=<?php echo $data['id']?>';">UPDATE RECORD</button></center>
+				<center><button type="button" class="btn btn-primary" onclick="document.location = 'LabIndustrialEDIT.php?id=<?php echo $data['PatientID']?>&tid=<?php echo $data['TransactionID']?>';">UPDATE RECORD</button></center>
             </div>
         </div>
     </div>	
 </div>
 	
 </div>
-<?php }}} ?>
+<?php }?>
 </body>
-</html>
+</html> 

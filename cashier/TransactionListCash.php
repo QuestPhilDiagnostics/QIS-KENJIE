@@ -2,11 +2,11 @@
 include_once('../connection.php');
 include_once('../classes/trans.php');
 $trans = new trans;
-$trans = $trans->fetch_all();
+$trans = $trans->fetch_allCash();
 ?>
 <html>
 	<head>
-		<title>Transactions Lists</title>
+		<title>Transactions Lists CASH</title>
 		<script type="text/javascript" src="../source/CDN/jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="../source/CDN/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="../source/CDN/dataTables.bootstrap4.min.js"></script>
@@ -71,7 +71,7 @@ include_once('cashsidebar.php');
 								<b><?php echo $trans['ItemName']?></b> (<?php echo $trans['ItemDescription']?>)
 							</td>
 							<td > 
-								<button type="button" class="btn btn-primary" onclick="document.location = 'ForREPrint.php?id=<?php echo $trans['TransactionID']?>&patid=<?php echo $trans['PatientID']?>';">Reprint Receipt</button>
+								<button type="button" class="btn btn-primary" onclick="document.location = 'ForREPrint.php?id=<?php echo $trans['PatientID']?>&tid=<?php echo $trans['TransactionID']?>';">Reprint Receipt</button>
 							</td>
 
 

@@ -15,7 +15,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
   if ($row['class'] != "Doctor"){
 
-    $user_home->redirect('nurse.php');
+    $user_home->redirect('home.php');
  }
 
 ?>

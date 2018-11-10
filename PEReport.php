@@ -5,30 +5,41 @@ include_once('classes/pe.php');
 include_once('classes/vital.php');
 include_once('classes/medhis.php');
 include_once('classes/patient.php');
+include_once('classes/transVal.php');
+$trans = new trans;
+if (isset($_GET['id'])){
+	$id = $_GET['id'];
+	$tid = $_GET['tid'];
+	$trans = $trans->fetch_data($id,$tid);
 $patient = new Patient;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$data = $patient->fetch_data($id);
+	$tid = $_GET['tid'];
+	$data = $patient->fetch_data($id,$tid);
 $His = new His;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$his = $His->fetch_data($id);
+	$tid = $_GET['tid'];
+	$his = $His->fetch_data($id,$tid);
 $vital = new vital;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$vit = $vital->fetch_data($id);
+	$tid = $_GET['tid'];
+	$vit = $vital->fetch_data($id,$tid);
 $pe = new pe;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$pex = $pe->fetch_data($id);
+	$tid = $_GET['tid'];
+	$pex = $pe->fetch_data($id,$tid);
 $qc = new qc;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$qc = $qc->fetch_data($id);
+	$tid = $_GET['tid'];
+	$qc = $qc->fetch_data($id,$tid);
 $printdate = date("m-d-Y");
 
-$chkEmail = $data['emaadd'];
-$chkCon = $data['connum'];
+$chkEmail = $data['Email'];
+$chkCon = $data['ContactNo'];
 
 $Asthma = $his['asth'];
 $Tubercolosis = $his['tb'];
@@ -335,61 +346,61 @@ $find = $pex['find'];
 			<div class="row">
 			    <div class="col-1"><p class="labelName">Company:</p></div>
 			    <div class="col-6">
-			        <span class="lineName"><?php echo $data['comnam'] ?></span>
+			        <span class="lineName"><?php echo $data['CompanyName'] ?></span>
 			    </div>
 			    <div class="col-2 text-right">
 			        <p class="labelName">Date:</p>
 			    </div>
 			    <div class="col">
-			        <span class="lineName"><?php echo $data['date'] ?></span>
+			        <span class="lineName"><?php echo $trans['TransactionDate'] ?></span>
 			    </div>
 			</div>
 			<div class="row">
 			    <div class="col-1"><p class="labelName">Name:</p></div>
 			    <div class="col-6">
-			        <span class="lineName"><?php echo $data['lasnam'] ?>,<?php echo $data['firnam'] ?> <?php echo $data['midnam'] ?></span>
+			        <span class="lineName"><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></span>
 			    </div>
 			    <div class="col-2 text-right">
 			        <p class="labelName">QuestID:</p>
 			    </div>
 			    <div class="col">
-			        <span class="lineName"><?php echo $data['id'] ?></span>
+			        <span class="lineName"><?php echo $data['PatientID'] ?></span>
 			    </div>
 			</div>
 			<div class="row">
 			    <div class="col-1"><p class="labelName">Address:</p></div>
 			    <div class="col-6">
-			        <span class="lineName"><?php echo $data['address'] ?></span>
+			        <span class="lineName"><?php echo $data['Address'] ?></span>
 			    </div>
 			    <div class="col-2 text-right">
 			        <p class="labelName">Gender:</p>
 			    </div>
 			    <div class="col">
-			        <span class="lineName"><?php echo $data['gen'] ?></span>
+			        <span class="lineName"><?php echo $data['Gender'] ?></span>
 			    </div>
 			</div>
 			<div class="row">
 			    <div class="col-1"><p class="labelName">Email:</p></div>
 			    <div class="col-6">
-			        <span class="lineName"><?php echo $data['emaadd'] ?></span>
+			        <span class="lineName"><?php echo $data['Email'] ?></span>
 			    </div>
 			    <div class="col-2 text-right">
 			        <p class="labelName">Age:</p>
 			    </div>
 			    <div class="col">
-			        <span class="lineName"><?php echo $data['age'] ?></span>
+			        <span class="lineName"><?php echo $data['Age'] ?></span>
 			    </div>
 			</div>
 			<div class="row">
 			    <div class="col-1"><p class="labelName">Mobile:</p></div>
 			    <div class="col-6">
-			        <span class="lineName"><?php echo $data['connum'] ?></span>
+			        <span class="lineName"><?php echo $data['ContactNo'] ?></span>
 			    </div>
 			    <div class="col-2 text-right">
 			        <p class="labelName">Birthdate:</p>
 			    </div>
 			    <div class="col">
-			        <span class="lineName"><?php echo $data['birdat'] ?></span>
+			        <span class="lineName"><?php echo $data['Birthdate'] ?></span>
 			    </div>
 			</div>
 			</div>
@@ -541,7 +552,7 @@ $find = $pex['find'];
 		</div>
 		<div class="row">
 			<div class="col-4"><p class="labelName">Others/Notes</p></div>
-			<div class="col"><p class="lineName"><?php echo $vit['notes']?></p></div>
+			<div class="col"><p class="lineName"><?php echo $vit['Notes']?></p></div>
 		</div>
 
 
@@ -631,11 +642,11 @@ $find = $pex['find'];
 				<hr>
 				<div class="row">
 					<div class="col-sm-2"><p class="labelName">Physician:</p></div>
-					<div class="col-sm-10"><p class="lineName"><?php echo $pex['doc']?></p></div>
+					<div class="col-sm-10"><p class="lineName"><?php echo $pex['Doctor']?></p></div>
 				</div>
 				<div class="row">
 					<div class="col-sm-2"><p class="labelName" style="line-height: 1px;">License:</p></div>
-					<div class="col-sm-10"><p class="lineName" style="line-height: 1px;"><?php echo $pex['lic']?></p></div>
+					<div class="col-sm-10"><p class="lineName" style="line-height: 1px;"><?php echo $pex['License']?></p></div>
 				</div>
 			</div>
 		</div>
@@ -657,7 +668,7 @@ $find = $pex['find'];
 		<img src="assets/QPDFooter.jpg" height="50px" width="100%">
 	</div>
 </div>
-<?php }}}}} ?>
+<?php }}}}}} ?>
 </div>
 </body>
 </html>

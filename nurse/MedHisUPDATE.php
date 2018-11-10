@@ -9,6 +9,7 @@ if (mysqli_connect_errno())
 date_default_timezone_set("Asia/Kuala_Lumpur");
 $date=date("Y-m-d H:i:s");
 $id=$_POST['id'];
+$tid=$_POST['tid'];
 $asth=isset($_POST['asth']) ? $_POST['asth'] : "NO";
 $tb=isset($_POST['tb']) ? $_POST['tb'] : "NO";
 $dia=isset($_POST['dia']) ? $_POST['dia'] : "NO";
@@ -25,12 +26,12 @@ $ct=isset($_POST['ct']) ? $_POST['ct'] : "NO";
 $hep=isset($_POST['hep']) ? $_POST['hep'] : "NO";
 $std=isset($_POST['std']) ? $_POST['std'] : "NO";
 
-    $sqlupdate="UPDATE qpd_medhis SET asth='$asth', tb='$tb', dia='$dia', hb='$hb', hp='$hp', kp='$kp', ab='$ab', jbs='$jbs', pp='$pp', mh='$mh', fs='$fs', alle='$alle', ct='$ct', hep='$hep', std='$std', DateUpdate='$date'  WHERE PatientID ='$id' ";
+    $sqlupdate="UPDATE qpd_medhis SET asth='$asth', tb='$tb', dia='$dia', hb='$hb', hp='$hp', kp='$kp', ab='$ab', jbs='$jbs', pp='$pp', mh='$mh', fs='$fs', alle='$alle', ct='$ct', hep='$hep', std='$std', DateUpdate='$date'  WHERE PatientID ='$id' AND TransactionID = '$tid' ";
 
     if ($conn->query($sqlupdate) === TRUE) 
     {
 	  echo "<script> alert('Record Updated Successfully') </script>";
-    echo "<script>window.open('MHVSView.php?id=$id','_self')</script>";
+    echo "<script>window.open('MHVSView.php?id=$id&tid=$tid','_self')</script>";
     }
   	else
   	{

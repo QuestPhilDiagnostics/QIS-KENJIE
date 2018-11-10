@@ -15,31 +15,38 @@ if (isset($_GET['id'])){
 $His = new His;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$his = $His->fetch_data($id);
+	$tid = $_GET['tid'];
+	$his = $His->fetch_data($id, $tid);
 $vital = new vital;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$vit = $vital->fetch_data($id);
+	$tid = $_GET['tid'];
+	$vit = $vital->fetch_data($id, $tid);
 $pe = new pe;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$pe = $pe->fetch_data($id);
+	$tid = $_GET['tid'];
+	$pe = $pe->fetch_data($id, $tid);
 $lab = new lab;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$lab = $lab->fetch_data($id);
+	$tid = $_GET['tid'];
+	$lab = $lab->fetch_data($id, $tid);
 $rad = new rad;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$rad = $rad->fetch_data($id);
+	$tid = $_GET['tid'];
+	$rad = $rad->fetch_data($id, $tid);
 $qc = new qc;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$qc = $qc->fetch_data($id);
+	$tid = $_GET['tid'];
+	$qc = $qc->fetch_data($id, $tid);
 $trans = new trans;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$trans = $trans->fetch_data($id);
+	$tid = $_GET['tid'];
+	$trans = $trans->fetch_data($id, $tid);
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,7 +67,7 @@ if (isset($_GET['id'])){
 		font-family: "Calibri";
 		font-size: 24px;
 	}
-	.card-block, select
+	.card-block
 	{
 		background-color: #ecf0f1;
 		font-family: "Century Gothic";
@@ -70,22 +77,10 @@ if (isset($_GET['id'])){
 	{
 		text-transform: uppercase;
 	}
-
-	.col-2
+		.col-2
 	{
 		align-self: center;
 	}
-	.card-block input
-	{
-		font-family: "Century Gothic";
-		font-size: 16px;
-	}
-	.card-block select
-	{
-		font-family: "Century Gothic";
-		font-size: 16px;
-	}
-
 </style>
 
 <body >
@@ -93,7 +88,7 @@ if (isset($_GET['id'])){
 include_once('doctorsidebar.php');
 ?>
 <div class="container-fluid">
-<form action="DocClassInsert.php" method="post" autocomplete="off" enctype="multipart/form-data">
+	<form action="DocClassInsert.php" method="post" autocomplete="off" enctype="multipart/form-data">
 <center><p style="font-size: 36px; font-family: 'Century Gothic';">Patient Summary Records</p></center>
 <div class="row">
     <div class="col-md-10 offset-sm-1">
@@ -103,32 +98,39 @@ include_once('doctorsidebar.php');
             	<div class="row">
 					<div class="col">
 						<label>Company Name: </label><br>
-						<p><b><?php echo $data['comnam'] ?></b></p>
+						<p><b><?php echo $data['CompanyName'] ?></b></p>
 						<label>Applied Position: </label><br>
-						<p><b><?php echo $data['apppos'] ?></b></p>
+						<p><b><?php echo $data['Position'] ?></b></p>
 						<label>Name:</label><br>
-						<p><b><?php echo $data['lasnam'] ?>,<?php echo $data['firnam'] ?> <?php echo $data['midnam'] ?></b></p>
+						<p><b><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></p>
 						<label>Address: </label><br>
-						<p><b><?php echo $data['address'] ?></b></p>
+						<p><b><?php echo $data['Address'] ?></b></p>
 					</div>
 					<div class="col">
 						<label>Birthdate: </label><br>
-						<p><b><?php echo $data['birdat'] ?></b></p>
+						<p><b><?php echo $data['Birthdate'] ?></b></p>
 						<label>Age: </label><br>
-						<p><b><?php echo $data['age'] ?></b></p>
+						<p><b><?php echo $data['Age'] ?></b></p>
 						<label>Gender: </label><br>
-						<p><b><?php echo $data['gen'] ?></b></p>
+						<p><b><?php echo $data['Gender'] ?></b></p>
 						<label>Contact No.: </label><br>
-						<p><b><?php echo $data['connum'] ?></b></p>
+						<p><b><?php echo $data['ContactNo'] ?></b></p>
 						<label>Email Address: </label><br>
-						<p><b><?php echo $data['emaadd'] ?></b></p>
+						<p><b><?php echo $data['Email'] ?></b></p>
 					</div>
-					<input type="hidden" name="Code" value="<?php echo $data['Code'] ?>">
-					<input type="hidden" name="id" value="<?php echo $data['id'] ?>">
-					<input type="hidden" name="comnam" value="<?php echo $data['comnam'] ?>">
-					<input type="hidden" name="firnam" value="<?php echo $data['firnam'] ?>">
-					<input type="hidden" name="midnam" value="<?php echo $data['midnam'] ?>">
-					<input type="hidden" name="lasnam" value="<?php echo $data['lasnam'] ?>">
+					<div class="col">
+						<label>LOE: </label><br>
+						<p><b><?php echo $trans['LOE'] ?></b></p>
+						<label>AN: </label><br>
+						<p><b><?php echo $trans['AN'] ?></b></p>
+						<label>AC: </label><br>
+						<p><b><?php echo $trans['AC'] ?></b></p>
+						<label>Senior ID: </label><br>
+						<p><b><?php echo $trans['SID'] ?></b></p>
+						<label>Comment: </label><br>
+						<p><b><?php echo $data['Notes'] ?></b></p>
+						<p><b><?php echo $trans['Notes'] ?></b></p>
+					</div>
 				</div>
             </div>
         </div>
@@ -142,19 +144,21 @@ include_once('doctorsidebar.php');
             	<div class="row">
 					<div class="col col-md-auto">
 						<label>SR No.: </label><br>
-						<p><b><?php echo $trans['id'] ?></b></p>
+						<p><b><?php echo $trans['TransactionID'] ?></b></p>
+						<p><b><input type="hidden" name="tid" value="<?php echo $trans['TransactionID'] ?>"></b></p>
+						<p><b><input type="hidden" name="id" value="<?php echo $data['PatientID'] ?>"></b></p>
 					</div>
 					<div class="col col-md-auto	">
 						<label>Availed: </label><br>
-						<p><b><?php echo $trans['PackName'] ?></b></p>
+						<p><b><?php echo $trans['ItemName'] ?></b></p>
 					</div>
 					<div class="col">
 						<label>Description: </label><br>
-						<p><b><?php echo $trans['PackList'] ?></b></p>
+						<p><b><?php echo $trans['ItemDescription'] ?></b></p>
 					</div>
 					<div class="col col-md-auto">
 						<label>Transaction Type: </label><br>
-						<p><b><?php echo $trans['trans_type'] ?></b></p>
+						<p><b><?php echo $trans['TransactionType'] ?></b></p>
 					</div>
 				</div>
             </div>
@@ -431,7 +435,7 @@ include_once('doctorsidebar.php');
 						<label>Others/Notes:</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['notes']?></b>
+						<b><?php echo $vit['Notes']?></b>
 					</div>
 				</div>
             </div>
@@ -526,7 +530,7 @@ include_once('doctorsidebar.php');
 						<label class="col-12 text-right">Physican:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $pe['doc']?><br></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $pe['Doctor']?><br></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -534,7 +538,7 @@ include_once('doctorsidebar.php');
 						<label class="col-12 text-right">License:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $pe['lic']?><br></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $pe['License']?><br></b></p>
 					</div>
 				</div>
             </div>
@@ -544,7 +548,7 @@ include_once('doctorsidebar.php');
 <div class="row">
 <div class="col-md-10 offset-sm-1">
         <div class="card" style="border-radius: 0px; margin-top: 10px;">
-            <div class="card-header card-inverse card-info"><center><b>Physical Examinations</b></center></div>
+            <div class="card-header card-inverse card-info"><center><b>Laboratory Results</b></center></div>
             <div class="card-block">
             	<!-- CBC -->
             	<div class="row">
@@ -815,7 +819,7 @@ include_once('doctorsidebar.php');
 	            		<center><b><?php echo $lab['Received'] ?></b></center>
 	            	</div>
 	            	<div class="col">
-	            		<center><b><?php echo $qc['qc'] ?></b></center>
+	            		<center><b><?php echo $qc['QC'] ?></b></center>
 
 	            	</div>
 	            	<div class="col">
@@ -847,7 +851,7 @@ include_once('doctorsidebar.php');
 						<label class="col-1">Comment:</label><br>
 					</div>
 					<div class="col-10">
-						<p style="padding-left: 20px;"><b><?php echo $rad['com']?><br></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $rad['Comment']?><br></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -855,15 +859,15 @@ include_once('doctorsidebar.php');
 						<label class="col-1">Impressions:</label><br>
 					</div>
 					<div class="col-10">
-						<p style="padding-left: 20px;"><b><?php echo $rad['imp']?><br></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $rad['Impression']?><br></b></p>
 					</div>
 				</div>
 				<div class="row">
 	            	<div class="col">
-	            		<center><b><?php echo $rad['qa'] ?></b></center>
+	            		<center><b><?php echo $rad['QA'] ?></b></center>
 	            	</div>
 	            	<div class="col">
-	            		<center><b><?php echo $rad['rad'] ?></b></center>
+	            		<center><b><?php echo $rad['Radiologist'] ?></b></center>
 	            	</div>
 				</div>
 				<div class="row">
@@ -888,7 +892,7 @@ include_once('doctorsidebar.php');
 						<label class="col-1">Class:</label><br>
 					</div>
 					<div class="col-10">
-						<p style="padding-left: 20px;"><b><?php echo $qc['Patclass']?><br></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $qc['MedicalClass']?><br></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -896,7 +900,7 @@ include_once('doctorsidebar.php');
 						<label class="col-1">Notes:</label><br>
 					</div>
 					<div class="col-10">
-						<p style="padding-left: 20px;"><b><?php echo $qc['ot']?><br></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $qc['Notes']?><br></b></p>
 					</div>
 				</div>
             </div>
@@ -906,7 +910,7 @@ include_once('doctorsidebar.php');
 <div class="row">
 <div class="col-md-10 offset-sm-1">
         <div class="card" style="border-radius: 0px; margin-top: 10px;">
-            <div class="card-header card-inverse card-info"><center><b>Modify Classification of <?php echo $data['lasnam'] ?>,<?php echo $data['firnam'] ?> <?php echo $data['midnam'] ?></b></center></div>
+            <div class="card-header card-inverse card-info"><center><b>Modify Classification of <?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></center></div>
             <div class="card-block">
 				<div class="row">
 					<div class="col-3">

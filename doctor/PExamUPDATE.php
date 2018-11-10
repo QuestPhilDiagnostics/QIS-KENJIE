@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "dbtest";
+$dbname = "dbqis";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -12,6 +12,7 @@ if ($conn->connect_error) {
 }
 
 $id=$_POST['id'];
+$tid=$_POST['tid'];
 $skin=$_POST['skin'];
 $hn=$_POST['hn'];
 $cbl=$_POST['cbl'];
@@ -24,12 +25,12 @@ $doc=$_POST['doc'];
 $lic=$_POST['lic'];
 $date=date("Y-m-d H:i:s");
 
-$sql = "UPDATE qpd_pe SET skin='$skin', hn='$hn', cbl='$cbl', ch='$ch', abdo='$abdo', extre='$extre', ot='$ot', find='$find', doc='$doc', lic='$lic' , date='$date' WHERE id='$id'";
+$sql = "UPDATE qpd_pe SET TransactionID='$tid', PatientID='$id', skin='$skin', hn='$hn', cbl='$cbl', ch='$ch', abdo='$abdo', extre='$extre', ot='$ot', find='$find', Doctor='$doc', License='$lic' , CreationDate='$date' WHERE PatientID='$id' AND TransactionID= '$tid'";
 
     if ($conn->query($sql) === TRUE) 
     {
 	  echo "<script> alert('Record Updated Successfully') </script>";
-    echo "<script>window.open('PExamView.php?id=$id','_self')</script>";
+    echo "<script>window.open('PExamView.php?id=$id&tid=$tid','_self')</script>";
     }
   	else
   	{

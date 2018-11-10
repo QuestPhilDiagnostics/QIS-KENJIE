@@ -111,7 +111,7 @@ $pack = $pack->fetch_all();
 								<?php echo $pack['ItemDescription']?>
 							</td>
 							<td > 
-								<button type="button" class="btn btn-danger" onclick="javascript:confirmationDelete($(this));return false;" href = 'DeletePack.php?id=<?php echo $pack['id']?>';>DELETE</button>
+								<button type="button" class="btn btn-danger" onclick="javascript:confirmationDelete($(this));return false;" href = 'DeletePack.php?id=<?php echo $pack['id']?>';">DELETE</button>
 							</td>
 							<?php } ?> 
 					</tr>

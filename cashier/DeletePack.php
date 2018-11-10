@@ -1,5 +1,5 @@
 <?php
-$conn=mysqli_connect("localhost","root","","dbtest");
+$conn=mysqli_connect("localhost","root","","dbqis");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -7,11 +7,11 @@ if (mysqli_connect_errno())
   }
 
 $id=$_GET['id'];
-$sql = "DELETE FROM qpd_package WHERE id = '$id' ";
+$sql = "DELETE FROM qpd_items WHERE ItemID = '$id' ";
 if ($conn->query($sql) === TRUE) 
   {
-     echo "<script>alert('Package Deleted Successfully')</script>";
-     echo "<script>window.open('Package.php','_self')</script>";
+     echo "<script>alert('Item Deleted Successfully')</script>";
+     echo "<script>window.open('ItemCash.php','_self')</script>";
   } 
   else
   {

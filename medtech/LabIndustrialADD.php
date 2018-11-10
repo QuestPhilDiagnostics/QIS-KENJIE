@@ -1,16 +1,17 @@
 <?php
 include_once('../connection.php');
-include_once('../classes/transVal.php');
+include_once('../classes/trans.php');
 include_once('../classes/patient.php');
 $patient = new Patient;
+$trans = new trans;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
 	$data = $patient->fetch_data($id);
 
-$trans = new trans;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$trans = $trans->fetch_data($id);
+	$tid = $_GET['tid'];
+	$trans = $trans->fetch_data($id,$tid);
 ?>
 
 <html>
@@ -55,7 +56,7 @@ if (isset($_GET['id'])){
 
 <body >
 <?php
-include_once('medsidebar.php');
+include_once('labsidebar.php');
 ?>
 <div class="container-fluid">
 <center><p style="font-size: 36px; font-family: 'Century Gothic';">Add Laboratory Results</p></center>
@@ -67,26 +68,37 @@ include_once('medsidebar.php');
             <form action="LabIndustrialINSERT.php" method="post" autocomplete="off" enctype="multipart/form-data">
             	<div class="row">
 					<div class="col col-md-auto">
-						<label>SR No.: </label><br>
+						<label>Patient ID.: </label><br>
 						<input type="hidden" name="id" value="<?php echo $data['PatientID'] ?>">
-						<b><?php echo $trans['id'] ?></b>
+						<b><?php echo $data['PatientID'] ?></b>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
+						<label>Transaction No.: </label><br>
+						<input type="hidden" name="tid" value="<?php echo $trans['TransactionID'] ?>">
+						<b><?php echo $trans['TransactionID'] ?></b>
+					</div>
+					<div class="col col-md-auto">
+						<label>Transaction Date.: </label><br>
+						<input type="hidden" value="<?php echo $trans['TransactionDate'] ?>">
+						<b><?php echo $trans['TransactionDate'] ?></b>
+					</div>
+					<div class="col col-md-auto">
 						<label>Name:</label><br>
-						<input type="hidden" name="LastName" value="<?php echo $data['LastName'] ?>">
-						<input type="hidden" name="FirstName" value="<?php echo $data['FirstName'] ?>">
-						<input type="hidden" name="MiddleName" value="<?php echo $data['MiddleName'] ?>">
+						<input type="hidden" name="lasnam" value="<?php echo $data['LastName'] ?>">
+						<input type="hidden" name="firnam" value="<?php echo $data['FirstName'] ?>">
+						<input type="hidden" name="midnam" value="<?php echo $data['MiddleName'] ?>">
 						<p><b><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></p>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
 						<label>Company Name: </label><br>
-						<input type="hidden" name="CompanyName" value="<?php echo $data['CompanyName'] ?>">
+						<input type="hidden" name="comnam" value="<?php echo $data['CompanyName'] ?>">
 						<p><b><?php echo $data['CompanyName'] ?></b></p>
 					</div>
-					<div class="col col-lg-2">
+					<div class="col col-md-auto">
 						<label>Gender:</label><br>
 						<p><b><?php echo $data['Gender'] ?></b></p>
 					</div>
+				</div>
 				</div>
             </div>
         </div>
@@ -99,13 +111,13 @@ include_once('medsidebar.php');
             <div class="card-block">
             	<div class="row">
             		<div class="col col-md-auto">
-            			Package: <p><b><?php echo $trans['ItemName'] ?></b></p>
+            			Item Avail: <p><b><?php echo $trans['ItemName'] ?></b></p>
             		</div>
             		<div class="col col-md-auto">
             			Description: <p><b><?php echo $trans['ItemDescription'] ?></b></p>
             		</div>
-            		<div class="col col-lg-2">
-            			Transaction: <p><b><?php echo $trans['TransactionType'] ?></b></p>
+            		<div class="col col-md-auto">
+            			Transaction Type: <p><b><?php echo $trans['TransactionType'] ?></b></p>
             		</div>
 				</div>
             </div>
@@ -508,7 +520,7 @@ include_once('medsidebar.php');
 	            		<input type="text" name="Received" class="form-control" value ='Adelbert D. Gonzales,RMT' placeholder=" Medical Technologist">
 	            	</div>
 	            	<div class="col">
-	            		<input type="text" name="qc" class="form-control" value ='Edward S. Agustin, RN' placeholder=" Quality Control">
+	            		<input type="text" name="qc" class="form-control" value ='Edward S. Agustin' placeholder=" Quality Control">
 	            	</div>
 	            	<div class="col">
 	            		<input type="text" name="Printed" class="form-control" value="Emiliano Dela Cruz,MD">

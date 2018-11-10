@@ -13,11 +13,10 @@ $stmt = $user_home->runQuery("SELECT * FROM tbl_users WHERE userID=:uid");
 $stmt->execute(array(":uid"=>$_SESSION['userSession']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if ($row['class'] != "QC"){
-
-    $user_home->redirect('nurse.php');
- }
-
+if ($row['class'] != "Accounting")
+{
+    $user_home->redirect('index.php');
+}
 ?>
 
 

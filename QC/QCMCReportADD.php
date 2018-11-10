@@ -1,6 +1,7 @@
 <?php
 include_once('../connection.php');
 include_once('../classes/qc.php');
+include_once('../classes/transVal.php');
 include_once('../classes/rad.php');
 include_once('../classes/lab.php');
 include_once('../classes/patient.php');
@@ -8,7 +9,8 @@ include_once('../classes/pe.php');
 $pe = new pe;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$pe = $pe->fetch_data($id);
+	$tid = $_GET['tid'];
+	$pe = $pe->fetch_data($id, $tid);
 $patient = new Patient;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
@@ -16,31 +18,39 @@ if (isset($_GET['id'])){
 $lab = new lab;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$res = $lab->fetch_data($id);
+	$tid = $_GET['tid'];
+	$res = $lab->fetch_data($id, $tid);
 
 $rad = new rad;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$rad = $rad->fetch_data($id);
+	$tid = $_GET['tid'];
+	$rad = $rad->fetch_data($id, $tid);
+$trans = new trans;
+if (isset($_GET['id'])){
+	$id = $_GET['id'];
+	$tid = $_GET['tid'];
+	$trans = $trans->fetch_data($id, $tid);
 $qc = new qc;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$qc = $qc->fetch_data($id);
+	$tid = $_GET['tid'];
+	$qc = $qc->fetch_data($id, $tid);
 $printdate = date("m-d-Y");
 
-if ($qc['Patclass'] == "CLASS A - Physically Fit")
+if ($qc['MedicalClass'] == "CLASS A - Physically Fit")
 {
 	$patclass1 = "Class A - FIT TO WORK";
 }
-else if ($qc['Patclass'] == "CLASS B - Physically Fit but with minor condition curable within a short period of time, that will not adversely affect the workers efficiency")
+else if ($qc['MedicalClass'] == "CLASS B - Physically Fit but with minor condition curable within a short period of time, that will not adversely affect the workers efficiency")
 {
 	$patclass1 = "Class B - FIT TO WORK";
 }
-else if ($qc['Patclass'] == "CLASS C - With abnormal findings generally not accepted for employment.")
+else if ($qc['MedicalClass'] == "CLASS C - With abnormal findings generally not accepted for employment.")
 {
 	$patclass1 = "CLASS C - With abnormal findings generally not accepted for employment.";
 }
-else if ($qc['Patclass'] == "CLASS D - Unemployable")
+else if ($qc['MedicalClass'] == "CLASS D - Unemployable")
 {
 	$patclass1 = "Class C - UNEMPLOYABLE";
 }
@@ -262,15 +272,15 @@ p small
 	<div class="col-sm-12"  style="padding-left: 10px; padding-right: 10px; border:3px solid #2980b9;">
 		<div class="header-line1"><center><h3>MEDICAL CERTIFICATE</h3></center></div><center>
 		<center><p class="para"><b>Medical Examination Rating System</b> (DOH, Bureau of Licensing and Regulation; Administrative Code no. 85-A series 1990)</p></center>
-		<p class="cert">I certify that I have examined <u><?php echo $data['lasnam'] ?>,<?php echo $data['firnam'] ?> <?php echo $data['midnam'] ?></u> and found applicant of <u><?php echo $data['comnam'] ?></u> with a classification of <u><?php echo $patclass1 ?></u>.</p><br></center>
+		<p class="cert">I certify that I have examined <u><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></u> and found applicant of <u><?php echo $data['CompanyName'] ?></u> with a classification of <u><?php echo $patclass1 ?></u>.</p><br></center>
 		<div class="col-sm-12">
 	<div class="col-sm-5" style="padding-left: 5px"><p class="label3"></p></div>
 	</div>
 	<div class="col-sm-12"><p class="data"></p></div>
 	<div class="col-sm-12">
 		<div class="col-sm-2" style="padding-left: 10px"><p class="label1">Others/Notes:</p></div>
-		<div class="col-sm-4" style="padding-left: 0px"><p class="data"><?php echo $qc['ot'] ?></p></div>
-		<div class="col-sm-6"><p class="data">Physician: <?php echo $pe['doc'] ?></p></div>
+		<div class="col-sm-4" style="padding-left: 0px"><p class="data"><?php echo $qc['Notes'] ?></p></div>
+		<div class="col-sm-6"><p class="data">Physician: <?php echo $pe['Doctor'] ?></p></div>
 	</div>
 	<div class="col-sm-12">
 		<div class="col-sm-2"><p class="label1"></p></div>
@@ -280,7 +290,7 @@ p small
 	<div class="col-sm-12">
 		<div class="col-sm-2"><p class="label1"></p></div>
 		<div class="col-sm-4" style="padding-left: 0px"><p class="data"></p></div>
-		<div class="col-sm-6" style="padding-left: 15px"><p class="data">License No.: <?php echo $pe['lic'] ?></p></div>
+		<div class="col-sm-6" style="padding-left: 15px"><p class="data">License No.: <?php echo $pe['License'] ?></p></div>
 	</div>
 </div>
 	
@@ -398,7 +408,7 @@ p small
 <form action="QCADD.php" method="post" autocomplete="off" enctype="multipart/form-data">
 <div class="col-sm-12">
 	<div class="col-sm-4" style="padding-left: 0px"><center><span class="line1"><br><b><?php echo $res['Received'] ?></b></span></center></div>
-	<div class="col-sm-4" style="padding-left: 0px;"><center><input type="text" name="qc" placeholder="Quality Control" value="<?php echo $qc['qc'] ?>"></center></div>
+	<div class="col-sm-4" style="padding-left: 0px;"><center><input type="text" name="qc" placeholder="Quality Control" value="<?php echo $qc['QC'] ?>"></center></div>
 	<div class="col-sm-4" style="padding-left: 0px"><center><span class="line1"><br><b><?php echo $res['Printed'] ?></b></span></center></div>
 </div>
 <div class="col-sm-12">
@@ -408,24 +418,20 @@ p small
 </div>
 <div class="col-sm-12"><div class="header-line"><center><h3>RADIOLOGY REPORT</h3></center></div></div>
 <font face="Arial" size="2px" color="black">
-<div class="col-sm-12" style="padding-left: 50px; padding-right: 50px"><?php echo $rad['com'] ?></div>
+<div class="col-sm-12" style="padding-left: 50px; padding-right: 50px"><?php echo $rad['Comment'] ?></div>
 <div class="col-sm-12" style="padding-left: 50px; padding-right: 50px">IMPRESSION:</div>
-<div class="col-sm-12" style="padding-left: 150px; padding-right: 50px"><?php echo $rad['imp'] ?></div>
+<div class="col-sm-12" style="padding-left: 150px; padding-right: 50px"><?php echo $rad['Impression'] ?></div>
 <div class="col-sm-12"><p class="data"></p></div>
 <div class="col-sm-12"><p class="data"></p></div>
 <div class="col-sm-12"><p class="data"></p></div>
 <div class="col-sm-12"><p class="data"></p></div>
 
-<input type="hidden" name="Code" value="<?php echo $data['Code'] ?>">
-<input type="hidden" name="id" value="<?php echo $data['id'] ?>">
-<input type="hidden" name="comnam" value="<?php echo $data['comnam'] ?>">
-<input type="hidden" name="firnam" value="<?php echo $data['firnam'] ?>">
-<input type="hidden" name="midnam" value="<?php echo $data['midnam'] ?>">
-<input type="hidden" name="lasnam" value="<?php echo $data['lasnam'] ?>">
+<input type="hidden" name="id" value="<?php echo $trans['PatientID'] ?>">
+<input type="hidden" name="tid" value="<?php echo $trans['TransactionID'] ?>">
 </font>
 <div class="col-sm-12">
-	<div class="col-sm-6" style="padding-left: 0px"><center><span class="line1"><?php echo $rad['qa'] ?></span></center></div>
-	<div class="col-sm-6" style="padding-left: 0px"><center><span class="line1"><?php echo $rad['rad'] ?></span></center></div>
+	<div class="col-sm-6" style="padding-left: 0px"><center><span class="line1"><?php echo $rad['QA'] ?></span></center></div>
+	<div class="col-sm-6" style="padding-left: 0px"><center><span class="line1"><?php echo $rad['Radiologist'] ?></span></center></div>
 </div>
 <div class="col-sm-12">
 	<div class="col-sm-6"><center><p class="label2">Quality Assurance</p></center></div>
@@ -437,7 +443,7 @@ p small
 <center><input type="submit" class="btn btn-success" value="SUBMIT"></center>
 </form>
 </div>
-<?php }}}}}?>
+<?php }}}}}}?>
 
 </body>
 </html>

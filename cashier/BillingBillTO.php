@@ -26,87 +26,77 @@ if (isset($_GET['gen']))
 	</head>
 <body>
 <?php
-include_once('cashsidebar.php');
+include_once('accountsidebar.php');
 ?>
 <div class="container" style="margin-top: 10px;">
 	<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         			<thead>
+						<th>Bill To</th>
         				<th>Date</th>
                     	<th>SR No.</th>
                     	<th>Transaction Type</th>
-						<th>Bill To</th>
 						<th>Cashier</th>
-						<th>Fullname</th>
+						<th>PatientID</th>
+						<th>Name</th>
 						<th>Company</th>
 						<th>Package</th>
 						<th>Description</th>
-						<th>Amount Availed</th>
+						<th>Price</th>
 						<th>Referred By</th>
+						<th>Amount Availed</th>
 						
 					</thead>
 					<?php
 					include_once('../summarycon.php');
-					$select = "SELECT * FROM qpd_trans WHERE date >= '$SD' AND date <= '$ED' AND bill_to = '$Company' AND trans_type = 'ACCOUNT'";
+					$select = "SELECT * FROM qpd_trans t, qpd_patient p WHERE t.TransactionDate >= '$SD' AND t.TransactionDate <= '$ED' AND t.Biller = '$Company' AND t.TransactionType = 'ACCOUNT' AND p.PatientID = t.PatientID";
 					$result = mysqli_query($con, $select);
 					$i=0;
 					while($row = mysqli_fetch_array($result))
 					{
 
-						$date = $row['date'];
-						$id = $row['id'];
-						$trans_type = $row['trans_type'];
-						$cash_name = $row['cash_name'];
-						$lasnam = $row['lasnam'];
-						$firnam = $row['firnam'];
-						$midnam = $row['midnam'];
-						$cust_comnam = $row['cust_comnam'];
-						$PackName = $row['PackName'];
-						$PackList = $row['PackList'];
-						$PackPrice = $row['PackPrice'];
-						$bill_to = $row['bill_to'];
-						$reff = $row['reff'];
-						$totalprice = $row['totalprice'];
-						$cust_cash = $row['cust_cash'];
-						$cust_change = $row['cust_change'];
-
-
 
 					 ?>
 					<tr>
-							<td>
-								<?php echo $date ?>
-							</td>
-							<td>
-								<?php echo $id ?>
-							</td>
-							<td>
-								<?php echo $trans_type ?>
-							</td>
-							<td>
-								<?php echo $bill_to ?>
-							</td>
-							<td>
-								<?php echo $cash_name ?>
-							</td>
-							<td>
-								<?php echo $lasnam ?>, <?php echo $firnam ?> <?php echo $midnam ?>
-							</td>
-							<td>
-								<?php echo $cust_comnam?>
-							</td>
-							<td>
-								<?php echo $PackName?>
-							</td>
-							<td>
-								<?php echo $PackList?>
-							</td>
-							<td>
-								<?php echo $totalprice?>
-							</td>
-							<td>
-								<?php echo $reff?>
-							</td>
 
+							<td>
+								<?php echo $row['Biller'];?>
+							</td>
+							<td nowrap>
+								<?php echo $row['TransactionDate']; ?>
+							</td>
+							<td>
+								<?php echo $row['TransactionID']; ?>
+							</td>
+							<td>
+								<?php echo $row['TransactionType']; ?>
+							</td>
+							<td>
+								<?php echo $row['Cashier']; ?>
+							</td>
+							<td>
+								<?php echo $row['PatientID']; ?>
+							</td>
+							<td nowrap>
+								<?php echo $row['LastName']; ?>, <?php echo $row['FirstName']; ?> <?php echo $row['MiddleName']; ?>
+							</td>
+							<td>
+								<?php echo $row['CompanyName'];?>
+							</td>
+							<td>
+								<?php echo $row['ItemName'];?>
+							</td>
+							<td>
+								<?php echo $row['ItemDescription'];?>
+							</td>
+							<td>
+								<?php echo $row['ItemPrice'];?>
+							</td>
+							<td>
+								<?php echo $row['Referral'];?>
+							</td>
+							<td>
+								<?php echo $row['GrandTotal'];?>
+							</td>
 							
 
 					</tr>

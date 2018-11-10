@@ -1,5 +1,5 @@
 <?php
-$con=mysqli_connect("localhost","root","","dbtest");
+$con=mysqli_connect("localhost","root","","dbqis");
 if (mysqli_connect_errno())
   {
   	echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -10,41 +10,46 @@ if (mysqli_connect_errno())
   	$SD = $_GET['SD'];
     $ED = $_GET['ED'];
     $j=0;
-    $select = "SELECT totalprice FROM qpd_trans WHERE trans_type = 'CASH' AND date >= '$SD' AND date <= '$ED'";
+    $select = "SELECT GrandTotal FROM qpd_trans WHERE TransactionType = 'CASH' AND TransactionDate >= '$SD' AND TransactionDate <= '$ED'";
 	$result = mysqli_query($con, $select);
-    $totalcash = 0;
+
+
     while($row = mysqli_fetch_array($result))
     {
-    	$totalcash += $row['totalprice'];
+    	$totalcash1[] = $row['GrandTotal'];
     	$j++;
-    	
+
     }
+    $tots = implode(", ",$totalcash1);
+    $tots1 = explode(", ",$tots);
+    $totalcash = array_sum($tots1);
+
     $i=0;
-	$select1 = "SELECT totalprice FROM qpd_trans WHERE trans_type = 'ACCOUNT' AND date >= '$SD' AND date <= '$ED'";
+	$select1 = "SELECT TotalPrice FROM qpd_trans WHERE TransactionType = 'ACCOUNT' AND TransactionDate >= '$SD' AND TransactionDate <= '$ED'";
 	$result1 = mysqli_query($con, $select1);
     $totalaccount = 0;
     while($row = mysqli_fetch_array($result1))
     {
-    	$totalaccount += $row['totalprice'];
+    	$totalaccount += $row['TotalPrice'];
     	$i++;
     	
     }
 
-	$select2 = "SELECT cust_change FROM qpd_trans WHERE date >= '$SD' AND date <= '$ED'";
+	$select2 = "SELECT PaidOut FROM qpd_trans WHERE TransactionDate >= '$SD' AND TransactionDate <= '$ED'";
 	$result2 = mysqli_query($con, $select2);
     $change = 0;
     while($row = mysqli_fetch_array($result2))
     {
-    	$change += $row['cust_change'];
+    	$change += $row['PaidOut'];
     	
     }
 
-	$select3 = "SELECT cust_cash FROM qpd_trans WHERE date >= '$SD' AND date <= '$ED'";
+	$select3 = "SELECT PaidIn FROM qpd_trans WHERE TransactionDate >= '$SD' AND TransactionDate <= '$ED'";
 	$result3 = mysqli_query($con, $select3);
     $cash = 0;
     while($row = mysqli_fetch_array($result3))
     {
-    	$cash += $row['cust_cash'];
+    	$cash += $row['PaidIn'];
     	
     }
 
@@ -217,20 +222,20 @@ if (mysqli_connect_errno())
 				</thead>
 				<tbody>
 				<?php
-				    $select4 = "SELECT totalprice, firnam, midnam, lasnam, bill_to FROM qpd_trans WHERE trans_type = 'ACCOUNT' AND date BETWEEN '$SD' AND '$ED'";
+				    $select4 = "SELECT * FROM qpd_trans t, qpd_patient p WHERE t.TransactionType = 'ACCOUNT' AND p.PatientID = t.PatientID AND t.TransactionDate BETWEEN '$SD' AND '$ED'";
 
 					$result4 = mysqli_query($con, $select4);
 				    while($row = mysqli_fetch_array($result4))
 				    {
-				    	$totalprice = $row['totalprice'];
-				        $firnam = $row['firnam'];
-				        $midnam = $row['midnam'];
-				        $lasnam = $row['lasnam'];
-				        $billto = $row['bill_to'];
+				    	$totalprice = $row['GrandTotal'];
+				        $firnam = $row['FirstName'];
+				        $midnam = $row['MiddleName'];
+				        $lasnam = $row['LastName'];
+				        $billto = $row['Biller'];
 
 					echo"
 						<tr>
-			                <td>$totalprice-</td>
+			                <td>$totalprice --</td>
 			                <td nowrap>$lasnam,$firnam &nbsp;$midnam</td>
 			                <td nowrap>-$billto</td>
 			            </tr>";	

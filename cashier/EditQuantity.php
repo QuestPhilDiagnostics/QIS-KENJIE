@@ -24,7 +24,7 @@ $Grand = $Price * $addquantity;
   $sqlupdate = "UPDATE temp_trans SET ItemQTY = '$addquantity', Discount = '$discounttotal', DiscountPer = '$discounttxt', TotalPrice = '$Price', GrandTotal = '$Grand' WHERE TransactionRef = '$ref' AND ItemID = '$id'";
   if ($conn->query($sqlupdate) === TRUE) 
     {
-       echo "<script>window.open('index.php?id=$ref','_self')</script>";
+       echo "<script>window.open('Cash.php?id=$ref','_self')</script>";
     }
   else
     {

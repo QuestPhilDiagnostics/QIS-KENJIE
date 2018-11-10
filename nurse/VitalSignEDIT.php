@@ -9,7 +9,8 @@ if (isset($_GET['id'])){
 $vital = new vital;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$vit = $vital->fetch_data($id);
+	$tid = $_GET['tid'];
+	$vit = $vital->fetch_data($id,$tid);
 ?>
 <html>
 <head>
@@ -66,22 +67,31 @@ include_once('nursesidebar.php');
             <div class="card-block">
            	<form action="VitalSignsUPDATE.php" method="post" autocomplete="off" enctype="multipart/form-data">
             	<div class="row">
-					<div class="col-4">
-						<label>SR No.: </label><br>
+					<div class="col col-md-auto">
+						<label>Patient ID.: </label><br>
 						<input type="hidden" name="id" value="<?php echo $data['PatientID'] ?>">
 						<b><?php echo $data['PatientID'] ?></b>
 					</div>
-					<div class="col-4">
+					<div class="col col-md-auto">
+						<label>Transaction No.: </label><br>
+						<input type="hidden" name="tid" value="<?php echo $vit['TransactionID'] ?>">
+						<b><?php echo $vit['TransactionID'] ?></b>
+					</div>
+					<div class="col col-md-auto">
 						<label>Name:</label><br>
 						<input type="hidden" name="lasnam" value="<?php echo $data['LastName'] ?>">
 						<input type="hidden" name="firnam" value="<?php echo $data['FirstName'] ?>">
 						<input type="hidden" name="midnam" value="<?php echo $data['MiddleName'] ?>">
 						<p><b><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></p>
 					</div>
-					<div class="col-4">
+					<div class="col col-md-auto">
 						<label>Company Name: </label><br>
 						<input type="hidden" name="comnam" value="<?php echo $data['CompanyName'] ?>">
 						<p><b><?php echo $data['CompanyName'] ?></b></p>
+					</div>
+					<div class="col col-md-auto">
+						<label>Gender:</label><br>
+						<p><b><?php echo $data['Gender'] ?></b></p>
 					</div>
 				</div>
             </div>

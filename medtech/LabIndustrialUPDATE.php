@@ -1,5 +1,5 @@
 <?php
-$conn=mysqli_connect("localhost","root","","dbtest");
+$conn=mysqli_connect("localhost","root","","dbqis");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -7,6 +7,7 @@ if (mysqli_connect_errno())
   }
 date_default_timezone_set("Asia/Kuala_Lumpur");
 $id=$_POST['id'];
+$tid=$_POST['tid'];
 $WhiteBlood=$_POST['WhiteBlood'] ? $_POST['WhiteBlood'] : "N/A";
 $Hemoglobin=$_POST['Hemoglobin'] ? $_POST['Hemoglobin'] : "N/A";
 $HemoNR=$_POST['HemoNR'] ? $_POST['HemoNR'] : "N/A";
@@ -46,13 +47,13 @@ $date=date("Y-m-d H:i:s");
 $qc=$_POST['qc'];
 
 
-$sqlupdate="UPDATE qpd_labresult SET WhiteBlood='$WhiteBlood', Hemoglobin='$Hemoglobin',HemoNR='$HemoNR', Hematocrit='$Hematocrit',HemaNR='$HemaNR', Neutrophils='$Neutrophils', Lymphocytes='$Lymphocytes', Monocytes='$Monocytes', CBCOt='$CBCOt',Meth='$Meth', Tetra='$Tetra', DT='$DT', HBsAg='$HBsAg', PregTest='$PregTest', SeroOt='$SeroOt', FecColor='$FecColor', FecCon='$FecCon', FecMicro='$FecMicro', FecOt='$FecOt', UriColor='$UriColor', UriTrans='$UriTrans', UriPh='$UriPh', UriSp='$UriSp', UriPro='$UriPro', UriGlu='$UriGlu', RBC='$RBC', WBC='$WBC', ECells='$ECells', MThreads='$MThreads', Bac='$Bac', Amorph='$Amorph', CoAx='$CoAx',UriOt='$UriOt', Received='$Received', Printed='$Printed', date='$date'  WHERE id ='$id' ";
-$sqlinsert1= "UPDATE qpd_class SET qc='$qc', date='$date'  WHERE id ='$id' ";
+$sqlupdate="UPDATE qpd_labresult SET WhiteBlood='$WhiteBlood', Hemoglobin='$Hemoglobin',HemoNR='$HemoNR', Hematocrit='$Hematocrit',HemaNR='$HemaNR', Neutrophils='$Neutrophils', Lymphocytes='$Lymphocytes', Monocytes='$Monocytes', CBCOt='$CBCOt',Meth='$Meth', Tetra='$Tetra', DT='$DT', HBsAg='$HBsAg', PregTest='$PregTest', SeroOt='$SeroOt', FecColor='$FecColor', FecCon='$FecCon', FecMicro='$FecMicro', FecOt='$FecOt', UriColor='$UriColor', UriTrans='$UriTrans', UriPh='$UriPh', UriSp='$UriSp', UriPro='$UriPro', UriGlu='$UriGlu', RBC='$RBC', WBC='$WBC', ECells='$ECells', MThreads='$MThreads', Bac='$Bac', Amorph='$Amorph', CoAx='$CoAx',UriOt='$UriOt', Received='$Received', Printed='$Printed', DateUpdate='$date'  WHERE PatientID ='$id' AND TransactionID = '$tid' ";
+$sqlinsert1= "UPDATE qpd_class SET QC='$qc', DateUpdate='$date'  WHERE PatientID ='$id' AND TransactionID = '$tid' ";
 
     if ($conn->query($sqlupdate) === TRUE) 
     {
 	  echo "<script> alert('Record Updated Successfully') </script>";
-    echo "<script>window.open('LabIndustrialView.php?id=$id','_self')</script>";
+    echo "<script>window.open('LabIndustrialView.php?id=$id&tid=$tid','_self')</script>";
     }
   	else
   	{

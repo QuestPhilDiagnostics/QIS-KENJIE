@@ -21,13 +21,9 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <link href="../source/bootstrap4/css/bootstrap.css" rel="stylesheet"/>
     <link href="../source/bootstrap4/css/bootstrap.min.css" rel="stylesheet"/>
-    <script type="javascript" href="../source/bootstrap3.3.7/js/bootstrap.js"></script>
-    <script type="javascript" href="../source/bootstrap3.3.7/js/bootstrap.min.js"> </script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="assets/QPD.png">
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <style type="text/css">
   .navbar-custom {
@@ -52,7 +48,6 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 </style>
 <body>
-  <!-- <IMG SRC="QPD.png" ALT="some text" WIDTH=60 HEIGHT=40> -->
 <nav class="navbar navbar-toggleable-md navbar-dark navbar-custom">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -63,12 +58,11 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
   </a>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="index.php" ><i class="fas fa-home"></i>&nbsp; Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="TransactionList.php"><i class="fas fa-list-ul"></i>&nbsp; Transaction List</a>
-      <a class="nav-item nav-link" href="HMO.php"><i class="far fa-calendar"></i>&nbsp; HMO Record</a>
-      <a class="nav-item nav-link" href="Package.php"><i class="fas fa-archive"></i>&nbsp; Manage Tests Packages</a>
-      <a class="nav-item nav-link" href="SalesReport.php"><i class="far fa-newspaper"></i>&nbsp; Sales Report</a>
-      <a class="nav-item nav-link" href="../logout.php" style="float: right; padding-left:320px; "><i class="fas fa-sign-out-alt"></i>&nbsp LOGOUT</a>
+     <a class="nav-item nav-link" href="Cash.php" ><i class="fas fa-home"></i>&nbsp; Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="TransactionListCash.php"><i class="fas fa-list-ul"></i>&nbsp; Transaction List</a>
+      <a class="nav-item nav-link" href="ItemCash.php"><i class="fas fa-archive"></i>&nbsp; Manage Tests Packages</a>
+      <a class="nav-item nav-link" href="CashSalesReport.php"><i class="far fa-newspaper"></i>&nbsp; Sales Report</a>
+      <a class="nav-item nav-link" href="../logout.php" style="float: right; padding-left:430px; "><i class="fas fa-sign-out-alt"></i>&nbsp LOGOUT</a>
     </div>
 
   </div>
@@ -76,13 +70,6 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
     <!-- <a class="nav-item nav-link" href="../logout.php"><i class="fas fa-sign-out-alt"></i>&nbsp LOGOUT</a> -->
     
 </nav>
-
-
-
-
-
-
-
 
 
 

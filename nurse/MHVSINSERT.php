@@ -7,6 +7,7 @@ if (mysqli_connect_errno())
   }
 date_default_timezone_set("Asia/Kuala_Lumpur");
     $id=$_POST['id'];
+    $tid=$_POST['tid'];
     $asth=$_POST['asth'];
     $tb=$_POST['tb'];
     $dia=$_POST['dia'];
@@ -56,13 +57,13 @@ date_default_timezone_set("Asia/Kuala_Lumpur");
 
     $date=date("Y-m-d H:i:s");
 
-$sql = "SELECT * FROM qpd_medhis WHERE PatientID ='".$id."'";
+$sql = "SELECT * FROM qpd_medhis WHERE PatientID ='$id' AND TransactionID = '$tid'";
 $result=mysqli_query($conn,$sql);
 if($rowcount=mysqli_num_rows($result) == 0) 
 {
-    $sqlinsert1 = "INSERT INTO qpd_medhis (PatientID, asth, tb, dia, hb, hp, kp, ab, jbs, pp, mh, fs, alle, ct, hep, std, CreationDate) VALUES ('$id','$asth', '$tb', '$dia', '$hb', '$hp', '$kp', '$ab', '$jbs', '$pp', '$mh', '$fs', '$alle', '$ct', '$hep', '$std', '$date') ";
-    $sqlinsert2= "INSERT INTO qpd_vital(PatientID, height, weight, bmi, bp, pr, rr, uod, uos, cod, cos, cv, hearing, hosp, opr, pm, smoker, ad, lmp, notes, CreationDate) VALUES('$id','$height', '$weight', '$bmi', '$bp', '$pr', '$rr', '$uod', '$uos', '$cod', '$cos', '$cv', '$hearing', '$hosp', '$opr', '$pm', '$smoker', '$ad', '$lmp', '$notes', '$date')";
-    $sqlinsert3="INSERT INTO qpd_pe (PatientID, skin, hn, cbl, ch, abdo, extre, ot, find,Doctor,License, CreationDate) values ('$id', '$skin', '$hn', '$cbl', '$ch', '$abdo', '$extre', '$ot', '$find' , '$doc', '$lic','$date')";
+    $sqlinsert1 = "INSERT INTO qpd_medhis (PatientID, TransactionID,  asth, tb, dia, hb, hp, kp, ab, jbs, pp, mh, fs, alle, ct, hep, std, CreationDate) VALUES ('$id','$tid','$asth', '$tb', '$dia', '$hb', '$hp', '$kp', '$ab', '$jbs', '$pp', '$mh', '$fs', '$alle', '$ct', '$hep', '$std', '$date') ";
+    $sqlinsert2= "INSERT INTO qpd_vital(PatientID, TransactionID, height, weight, bmi, bp, pr, rr, uod, uos, cod, cos, cv, hearing, hosp, opr, pm, smoker, ad, lmp, notes, CreationDate) VALUES('$id', '$tid','$height', '$weight', '$bmi', '$bp', '$pr', '$rr', '$uod', '$uos', '$cod', '$cos', '$cv', '$hearing', '$hosp', '$opr', '$pm', '$smoker', '$ad', '$lmp', '$notes', '$date')";
+    $sqlinsert3="INSERT INTO qpd_pe (PatientID, TransactionID, skin, hn, cbl, ch, abdo, extre, ot, find,Doctor,License, CreationDate) values ('$id', '$tid', '$skin', '$hn', '$cbl', '$ch', '$abdo', '$extre', '$ot', '$find' , '$doc', '$lic','$date')";
 
     if ($conn->query($sqlinsert1) === TRUE && $conn->query($sqlinsert2) === TRUE && $conn->query($sqlinsert3) === TRUE) 
     {
@@ -77,11 +78,11 @@ if($rowcount=mysqli_num_rows($result) == 0)
 } 
 else 
 {
-    $sqlinsert1 = "UPDATE qpd_medhis SET asth = '$asth', tb = '$tb', dia = '$dia', hb = '$hb', hp = '$hp', kp = '$kp', ab = '$ab', jbs = '$jbs', pp = '$pp', mh = '$mh', fs = '$fs', alle = '$alle', ct = '$ct', hep = '$hep', std = '$std', DateUpdate = '$date' WHERE PatientID = '$id'";
+    $sqlinsert1 = "UPDATE qpd_medhis SET asth = '$asth', tb = '$tb', dia = '$dia', hb = '$hb', hp = '$hp', kp = '$kp', ab = '$ab', jbs = '$jbs', pp = '$pp', mh = '$mh', fs = '$fs', alle = '$alle', ct = '$ct', hep = '$hep', std = '$std', DateUpdate = '$date' WHERE PatientID = '$id' AND TransactionID = '$tid'";
 
-    $sqlinsert2= "UPDATE qpd_vital SET height='$height', weight='$weight', bmi='$bmi', bp='$bp', pr='$pr', rr='$rr', uod='$uod', uos='$uos', cod='$cod', cos='$cos', cv='$cv', hearing='$hearing', hosp='$hosp', opr='$opr', pm='$pm', smoker='$smoker', ad='$ad', lmp='$lmp', Notes='$notes', DateUpdate='$date'WHERE PatientID='$id'";
+    $sqlinsert2= "UPDATE qpd_vital SET height='$height', weight='$weight', bmi='$bmi', bp='$bp', pr='$pr', rr='$rr', uod='$uod', uos='$uos', cod='$cod', cos='$cos', cv='$cv', hearing='$hearing', hosp='$hosp', opr='$opr', pm='$pm', smoker='$smoker', ad='$ad', lmp='$lmp', Notes='$notes', DateUpdate='$date'WHERE PatientID='$id' AND TransactionID = '$tid'";
 
-    $sqlinsert3="UPDATE qpd_pe SET skin='$skin', hn='$hn', cbl='$cbl', ch='$ch', abdo='$abdo', extre='$extre', ot='$ot', find='$find',Doctor='$doc',License='$lic', DateUpdate='$date' WHERE PatientID = '$id'";
+    $sqlinsert3="UPDATE qpd_pe SET skin='$skin', hn='$hn', cbl='$cbl', ch='$ch', abdo='$abdo', extre='$extre', ot='$ot', find='$find',Doctor='$doc',License='$lic', DateUpdate='$date' WHERE PatientID = '$id' AND TransactionID = '$tid'";
 
     if ($conn->query($sqlinsert1) === TRUE && $conn->query($sqlinsert2) === TRUE && $conn->query($sqlinsert3) === TRUE) 
     {

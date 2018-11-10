@@ -3,6 +3,8 @@ include_once('../connection.php');
 include_once('../classes/lab.php');
 $lab = new lab;
 $lab= $lab->fetch_all();
+
+
 ?>
 <html>
 	<head>
@@ -30,12 +32,13 @@ $lab= $lab->fetch_all();
 	</style>
 <body>
 <?php
-include_once('medsidebar.php');
+include_once('labsidebar.php');
 ?>
 <div class="container" style="margin-top: 10px;">
 	<table id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="50%" style="overflow-x:scroll;">
         			<thead>
 						<th>ID</th>
+						<th>Transaction ID</th>
 						<th>Last Date Updated</th>
 						<th>Company Name</th>
 						<th>Patient Name</th>
@@ -79,16 +82,19 @@ include_once('medsidebar.php');
 					
 					<tr>
 							<td>
-								<?php echo $lab['id']?>
+								<?php echo $lab['PatientID']?>
 							</td>
 							<td>
-								<?php echo $lab['date']?>
+								<?php echo $lab['TransactionID']?>
 							</td>
 							<td>
-								<?php echo $lab['comnam']?>
+								<?php echo $lab['TransactionDate']?>
+							</td>
+							<td>
+								<?php echo $lab['CompanyName']?>
 							</td>	
 							<td>
-								<?php echo $lab['lasnam']?>,<?php echo $lab['firnam']?> <?php echo $lab['midnam']?> 
+								<?php echo $lab['LastName']?>,<?php echo $lab['FirstName']?> <?php echo $lab['MiddleName']?> 
 							</td>
 							<td>
 								<?php echo $lab['WhiteBlood']?>
@@ -190,7 +196,7 @@ include_once('medsidebar.php');
 								<?php echo $lab['Printed']?>
 							</td>
 							<td>
-								<button type="button" class="btn btn-primary" onclick="document.location = 'LabResultsEDIT.php?id=<?php echo $lab['id']?>';">UPDATE RECORD</button>
+								<button type="button" class="btn btn-primary" onclick="document.location = 'LabIndustrialEDIT.php?id=<?php echo $lab['PatientID']?>&tid=<?php echo $lab['TransactionID']?>';">UPDATE RECORD</button>
 							</td>
 							
 							

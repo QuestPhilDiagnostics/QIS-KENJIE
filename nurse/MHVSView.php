@@ -1,32 +1,18 @@
 <?php
 include_once('../connection.php');
-include_once('../classes/medhis.php');
-include_once('../classes/vital.php');
-include_once('../classes/pe.php');
-include_once('../classes/patient.php');
-$patient = new Patient;
+include_once('../classes/mhvs.php');
+$trans = new trans;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$data = $patient->fetch_data($id);
-$pe = new pe;
-if (isset($_GET['id'])){
-    $id = $_GET['id'];
-    $pe = $pe->fetch_data($id);
-$vital = new vital;
-if (isset($_GET['id'])){
-	$id = $_GET['id'];
-	$vit = $vital->fetch_data($id);
-$His = new His;
-if (isset($_GET['id'])){
-	$id = $_GET['id'];
-	$his = $His->fetch_data($id);
+	$tid = $_GET['tid'];
+	$data = $trans->fetch_data($id, $tid);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Medical History & Vital Signs</title>
+	<title>Medical datatory & dataal Signs</title>
     <link href="../source/bootstrap4/css/bootstrap.min.css" media="all" rel="stylesheet"/>
 </head>
 <style type="text/css" media="all">
@@ -64,15 +50,23 @@ include_once('nursesidebar.php');
             <div class="card-header card-inverse card-info"><center><b>PATIENT INFORMATION</b></center></div>
             <div class="card-block">
             	<div class="row">
-					<div class="col col-md-auto">
-						<label>SR No.: </label><br>
+            		<div class="col col-md-auto">
+						<label>Patient ID.: </label><br>
 						<b><?php echo $data['PatientID'] ?></b>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
+						<label>SR No.: </label><br>
+						<b><?php echo $data['TransactionID'] ?></b>
+					</div>
+					<div class="col col-md-auto">
+						<label>Transaction Date: </label><br>
+						<b><?php echo $data['TransactionDate'] ?></b>
+					</div>
+					<div class="col col-md-auto">
 						<label>Name:</label><br>
 						<p><b><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></p>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
 						<label>Company Name: </label><br>
 						<p><b><?php echo $data['CompanyName'] ?></b></p>
 					</div>
@@ -99,7 +93,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Asthma:</label>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['asth']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['asth']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -107,7 +101,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Tuberculosis:</label>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['tb']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['tb']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -115,7 +109,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Diabetes:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['dia']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['dia']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -123,7 +117,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">High Blood Pressure:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['hb']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['hb']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -131,7 +125,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Heart Problem:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['hp']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['hp']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -139,7 +133,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Kidney Problem:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['kp']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['kp']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -147,7 +141,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Abdominal/Hernia:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['ab']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['ab']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -155,7 +149,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Joint/Back/Scoliosis:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['jbs']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['jbs']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -163,7 +157,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Psychiatric Problem:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['pp']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['pp']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -171,7 +165,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Migraine/Headache:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['mh']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['mh']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -179,7 +173,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Fainting/Seizure:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['fs']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['fs']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -187,7 +181,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Allergies:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['alle']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['alle']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -195,7 +189,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Cancer/Tumor:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['ct']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['ct']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -203,7 +197,7 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">Hepatitis:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['hep']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['hep']?></b></p>
 					</div>
 				</div>
 				<div class="row">
@@ -211,12 +205,12 @@ include_once('nursesidebar.php');
 						<label class="col-12 text-right">STD:</label><br>
 					</div>
 					<div class="col">
-						<p style="padding-left: 20px;"><b><?php echo $his['std']?></b></p>
+						<p style="padding-left: 20px;"><b><?php echo $data['std']?></b></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col">
-						<center><button type="button" class="btn btn-primary" onclick="document.location = 'MedHisEDIT.php?id=<?php echo $his['PatientID']?>';">UPDATE RECORD</button></center>
+						<center><button type="button" class="btn btn-primary" onclick="document.location = 'MedhisEDIT.php?id=<?php echo $data['PatientID']?>&tid=<?php echo $data['TransactionID']?>';">UPDATE RECORD</button></center>
 					</div>
 				</div>
             </div>
@@ -231,29 +225,29 @@ include_once('nursesidebar.php');
             	<div class="row">
 					<div class="col">
 						<label>Height:</label>
-						<b><?php echo $vit['height']?></b>
+						<b><?php echo $data['height']?></b>
 					</div>
 					<div class="col">
 						<label>Weight:</label>
-						<b><?php echo $vit['weight']?></b>
+						<b><?php echo $data['weight']?></b>
 					</div>
 					<div class="col">
 						<label>BMI:</label>
-						<b><?php echo $vit['bmi']?></b>
+						<b><?php echo $data['bmi']?></b>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col">
 						<label>BP:</label>
-						<b><?php echo $vit['bp']?></b>
+						<b><?php echo $data['bp']?></b>
 					</div>
 					<div class="col">
 						<label>PR:</label>
-						<b><?php echo $vit['pr']?></b>
+						<b><?php echo $data['pr']?></b>
 					</div>
 					<div class="col">
 						<label>RR:</label>
-						<b><?php echo $vit['rr']?></b>
+						<b><?php echo $data['rr']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -267,11 +261,11 @@ include_once('nursesidebar.php');
 					</div>
 					<div class="col">
 						<label>OD:</label>
-						<b><?php echo $vit['uod']?></b>
+						<b><?php echo $data['uod']?></b>
 					</div>
 					<div class="col">
 						<label>OS:</label>
-						<b><?php echo $vit['uos']?></b>
+						<b><?php echo $data['uos']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -280,11 +274,11 @@ include_once('nursesidebar.php');
 					</div>
 					<div class="col">
 						<label>OD:</label>
-						<b><?php echo $vit['cod']?></b>
+						<b><?php echo $data['cod']?></b>
 					</div>
 					<div class="col">
 						<label>OS:</label>
-						<b><?php echo $vit['cos']?></b>
+						<b><?php echo $data['cos']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -292,7 +286,7 @@ include_once('nursesidebar.php');
 						<label>Ishihara Test:</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['cv']?></b>
+						<b><?php echo $data['cv']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -300,7 +294,7 @@ include_once('nursesidebar.php');
 						<label>Hearing:</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['hearing']?></b>
+						<b><?php echo $data['hearing']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -308,7 +302,7 @@ include_once('nursesidebar.php');
 						<label>Hospitalization:</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['hosp']?></b>
+						<b><?php echo $data['hosp']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -316,7 +310,7 @@ include_once('nursesidebar.php');
 						<label>Operations:</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['opr']?></b>
+						<b><?php echo $data['opr']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -324,7 +318,7 @@ include_once('nursesidebar.php');
 						<label>Present Medications:</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['pm']?></b>
+						<b><?php echo $data['pm']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -332,7 +326,7 @@ include_once('nursesidebar.php');
 						<label>Smoker(sticks/packs/years):</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['smoker']?></b>
+						<b><?php echo $data['smoker']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -340,7 +334,7 @@ include_once('nursesidebar.php');
 						<label>Alcoholic Drinker:</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['ad']?></b>
+						<b><?php echo $data['ad']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -348,7 +342,7 @@ include_once('nursesidebar.php');
 						<label>Last Menstrual Period:</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['lmp']?></b>
+						<b><?php echo $data['lmp']?></b>
 					</div>
 				</div>
 				<div class="row">
@@ -356,12 +350,12 @@ include_once('nursesidebar.php');
 						<label>Others/Notes:</label>
 					</div>
 					<div class="col-8">
-						<b><?php echo $vit['Notes']?></b>
+						<b><?php echo $data['Notes']?></b>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col">
-						<center><button type="button" class="btn btn-primary" onclick="document.location = 'VitalSignEDIT.php?id=<?php echo $vit['PatientID']?>';">UPDATE RECORD</button>
+						<center><button type="button" class="btn btn-primary" onclick="document.location = 'VitalSignEDIT.php?id=<?php echo $data['PatientID']?>&tid=<?php echo $data['TransactionID']?>';">UPDATE RECORD</button>
 					</div>
 				</div>
             </div>
@@ -392,7 +386,7 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">Skin:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['skin']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['skin']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -400,7 +394,7 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">Head and Neck:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['hn']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['hn']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -408,7 +402,7 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">Chest/Breast/Lungs:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['cbl']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['cbl']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -416,7 +410,7 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">Cardiac/Heart:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['ch']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['ch']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -424,7 +418,7 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">Abdomen:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['abdo']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['abdo']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -432,7 +426,7 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">Extremities:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['extre']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['extre']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -440,7 +434,7 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">Others/Notes:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['ot']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['ot']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -448,7 +442,7 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">Findings:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['find']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['find']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -456,7 +450,7 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">Physican:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['Doctor']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['Doctor']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -464,11 +458,11 @@ include_once('nursesidebar.php');
                         <label class="col-12 text-right">License:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['License']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $data['License']?><br></b></p>
                     </div>
                 </div>
             <hr>
-            <center><button type="button" class="btn btn-primary" onclick="document.location = 'PExamEDIT.php?id=<?php echo $pe['PatientID']?>';">UPDATE RECORD</button></center>
+            <center><button type="button" class="btn btn-primary" onclick="document.location = 'PExamEDIT.php?id=<?php echo $data['PatientID']?>&tid=<?php echo $data['TransactionID']?>';">UPDATE RECORD</button></center>
             </div>
         </div>
 	</div>
@@ -476,13 +470,7 @@ include_once('nursesidebar.php');
 <center><button type="button" class="btn btn-primary" onclick="document.location = 'MHVS.php';">BACK</button></center>
 
 
-
-
-
-
-
-
 </div>
 </body>
 </html>
-<?php  }}}}	?>	
+<?php  }	?>	

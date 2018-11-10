@@ -189,7 +189,7 @@ else
 </style>
 <body >
 <?php
-include_once('cashsidebar.php');
+include_once('accountsidebar.php');
 ?>
 <div class="container-fluid">
 <center><p style="font-size: 36px; font-family: 'Century Gothic';">Make a Sale</p></center>

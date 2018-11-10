@@ -48,31 +48,31 @@ include_once('radsidebar.php');
 					<?php foreach  ($rad as $rad) {  ?>
 					<tr>
 							<td>
-								<?php echo $rad['id']?>
+								<?php echo $rad['PatientID']?>
 							</td>
 							<td>
-								<?php echo $rad['date']?>
+								<?php echo $rad['TransactionDate']?>
 							</td>
 							<td>
-								<?php echo $rad['comnam']?>
+								<?php echo $rad['CompanyName']?>
 							</td>	
 							<td>
-								<?php echo $rad['lasnam']?>,<?php echo $rad['firnam']?> <?php echo $rad['midnam']?> 
+								<?php echo $rad['LastName']?>,<?php echo $rad['FirstName']?> <?php echo $rad['MiddleName']?> 
 							</td>
 							<td>
-								<?php echo $rad['com']?>
+								<?php echo $rad['Comment']?>
 							</td>
 							<td>
-								<?php echo $rad['imp']?>
+								<?php echo $rad['Impression']?>
 							</td>
 							<td>
-								<?php echo $rad['rad']?>
+								<?php echo $rad['Radiologist']?>
 							</td>
 							<td>
-								<?php echo $rad['qa']?>
+								<?php echo $rad['QA']?>
 							</td>
 							<td>
-								<button type="button" class="btn btn-primary" onclick="document.location = 'XRayEDIT.php?id=<?php echo $rad['id']?>';">UPDATE RECORD</button>
+								<button type="button" class="btn btn-primary" onclick="document.location = 'XRayEDIT.php?id=<?php echo $rad['PatientID']?>&tid=<?php echo $rad['TransactionID']?>';">UPDATE RECORD</button>
 							</td>
 
 					</tr>

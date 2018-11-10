@@ -13,9 +13,9 @@ $stmt = $user_home->runQuery("SELECT * FROM tbl_users WHERE userID=:uid");
 $stmt->execute(array(":uid"=>$_SESSION['userSession']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if ($row['class'] != "RadTech"){
+  if ($row['class'] != "Imaging"){
 
-    $user_home->redirect('../doctor/doctor.php');
+    $user_home->redirect('../home.php');
  }
 
 ?>

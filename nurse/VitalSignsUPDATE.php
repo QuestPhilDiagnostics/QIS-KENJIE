@@ -14,6 +14,7 @@ if ($conn->connect_error)
 date_default_timezone_set("Asia/Kuala_Lumpur");
 $date=date("Y-m-d H:i:s");
 $id=$_POST['id'];
+$tid=$_POST['tid'];
 $height=isset($_POST['height']) ? $_POST['height'] : "N/A";
 $weight=isset($_POST['weight']) ? $_POST['weight'] : "N/A";
 $bmi=isset($_POST['bmi']) ? $_POST['bmi'] : "N/A" ; 
@@ -34,12 +35,12 @@ $ad=isset($_POST['ad']) ? $_POST['ad'] : "N/A";
 $lmp=isset($_POST['lmp']) ? $_POST['lmp'] : "N/A";
 $notes=isset($_POST['notes']) ? $_POST['notes'] : "N/A";
 
-$sql="UPDATE qpd_vital SET height='$height', weight='$weight', bmi='$bmi', bp='$bp', pr='$pr', rr='$rr', uod='$uod', uos='$uos', cod='$cod', cos='$cos', cv='$cv', hearing='$hearing', hosp='$hosp', opr='$opr', pm='$pm', smoker='$smoker', ad='$ad', lmp='$lmp', notes='$notes', DateUpdate='$date' WHERE PatientID ='$id' ";
+$sql="UPDATE qpd_vital SET height='$height', weight='$weight', bmi='$bmi', bp='$bp', pr='$pr', rr='$rr', uod='$uod', uos='$uos', cod='$cod', cos='$cos', cv='$cv', hearing='$hearing', hosp='$hosp', opr='$opr', pm='$pm', smoker='$smoker', ad='$ad', lmp='$lmp', notes='$notes', DateUpdate='$date' WHERE PatientID ='$id' AND TransactionID = '$tid' ";
 
 if ($conn->query($sql) === TRUE) 
 {
 	echo "<script> alert('Record Updated Successfully') </script>";
-  echo "<script>window.open('MHVSView.php?id=$id','_self')</script>";
+  echo "<script>window.open('MHVSView.php?id=$id&tid=$tid','_self')</script>";
 }
 else
 {

@@ -7,7 +7,7 @@ if (isset($_GET['gen']))
 ?>
 <html>
 	<head>
-		<title>Billing</title>
+		<title>ALORICA SUMMARY REPORT</title>
 		<script type="text/javascript" src="../source/CDN/jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="../source/CDN/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="../source/CDN/dataTables.bootstrap4.min.js"></script>
@@ -33,29 +33,45 @@ include_once('qcsidebar.php');
         				<th><center>DATE</center></th>
         				<th><center>COMPANY</center></th>
 		                <th><center>NAME</center></th>
+		                <th><center>AGE/SEX</center></th>
 		                <th><center>CHEST X-RAY</center></th>
 		                <th><center>URINALYSIS</center></th>
 		                <th><center>FECALYSIS</center></th>
 		                <th><center>CBC</center></th>
-		                <th><center>HBSAG</center></th>
-		                <th><center>DRUG TEST</center></th>
+		                <!-- <th><center>HBSAG</center></th>
+		                <th><center>DRUG TEST</center></th> -->
 		                <th><center>MEDICAL CLASSIFICATION</center></th>
 		                <th><center>REMARKS</center></th>
+		                <th><center>CONTACT NO.</center></th>
 						
 					</thead>
 					<?php
 					include_once('../summarycon.php');
-					 $select = "SELECT f.date, f.comnam,  f.firnam, f.midnam, f.lasnam, l.CBCOt, l.FecMicro, l.FecOt, l.UriOt, l.HBsAg,l.DT, x.imp, c.Patclass, c.ot, p.find FROM qpd_form f, qpd_labresult l, qpd_xray x, qpd_class c, qpd_pe p WHERE f.id=l.id AND f.id=x.id AND f.id=c.id AND f.id=p.id AND f.date >= '$SD' AND f.date <='$ED' AND f.comnam LIKE '$Company%' ORDER BY f.lasnam";
+					 $select = "SELECT * FROM qpd_patient f, qpd_labresult l, qpd_xray x, qpd_class c, qpd_pe p, qpd_trans t WHERE 
+						f.PatientID=l.PatientID AND 
+						f.PatientID=x.PatientID AND 
+						f.PatientID=c.PatientID AND 
+						f.PatientID=p.PatientID AND 
+						f.PatientID=t.PatientID AND 
+						t.TransactionID=l.TransactionID AND 
+						t.TransactionID=x.TransactionID AND 
+						t.TransactionID=c.TransactionID AND 
+						t.TransactionID=p.TransactionID AND
+						f.CreationDate >= '$SD' AND f.CreationDate <='$ED' AND 
+						f.CompanyName LIKE '$Company%' ORDER BY f.LastName";
 					$result = mysqli_query($con, $select);
 					$i=0;
 					while($row = mysqli_fetch_array($result))
 					{
 
-						 	$firnam = $row['firnam'];
-			                $midnam = $row['midnam'];
-			                $lasnam = $row['lasnam'];
-			                $date = $row['date'];
-			                $comnam = $row['comnam'];
+						 	$firnam = $row['FirstName'];
+			                $midnam = $row['MiddleName'];
+			                $lasnam = $row['LastName'];
+			                $age = $row['Age'];
+			                $gen = $row['Gender'];
+			                $connum = $row['ContactNo'];
+			                $date = $row['CreationDate'];
+			                $comnam = $row['CompanyName'];
 			                $CBCOt = $row['CBCOt'];
 			                $FecMicro = $row['FecMicro'];
 			                if ($FecMicro == "NO INTESTINAL PARASITE SEEN") 
@@ -89,7 +105,7 @@ include_once('qcsidebar.php');
 		                    {
 		                        $HBsAg1 = "N/A";
 		                    }
-			                $xray = $row['imp'];
+			                $xray = $row['Impression'];
 			                if ($xray == "NORMAL CHEST FINDINGS" || $xray == "CONSIDERED NORMAL CHEST PA")
 			                {
 			                    $xray1 = "NORMAL";
@@ -104,12 +120,12 @@ include_once('qcsidebar.php');
 			                }
 			                else
 			                {
-			                    $xray1 = $row['imp'];
+			                    $xray1 = $row['Impression'];
 			                }
 
-			                $patclass = $row['Patclass'];
+			                $patclass = $row['MedicalClass'];
 
-			                $note = $row['ot'];
+			                $note = $row['Notes'];
 			                if ($patclass == "CLASS A - Physically Fit")
 			                {
 			                    $patclass1 = "Class A";
@@ -150,14 +166,17 @@ include_once('qcsidebar.php');
 
 					 ?>
 					<tr>
-							<td>
+							<td nowrap>
 								<?php echo $date; ?>
 							</td>
-							<td>
+							<td nowrap>
 								<?php echo $comnam; ?>
 							</td>
-							<td>
+							<td nowrap>
 								<?php echo $lasnam; ?>, <?php echo $firnam; ?> <?php echo $midnam; ?>
+							</td>
+							<td nowrap> 
+								<?php echo $age; ?>/<?php echo $gen; ?>
 							</td>
 							<td>
 								<?php echo $xray1; ?>
@@ -171,17 +190,20 @@ include_once('qcsidebar.php');
 							<td>
 								<?php echo $CBCOt; ?>
 							</td>
-							<td>
+							<!-- <td>
 								<?php echo $HBsAg1; ?>
 							</td>
 							<td>
 								<?php echo $DT; ?>
-							</td>
+							</td> -->
 							<td>
 								<?php echo $patclass1; ?>
 							</td>
 							<td>
 								<?php echo $patclass2; ?>
+							</td>
+							<td nowrap>
+								<?php echo $connum; ?>
 							</td>
 
 							

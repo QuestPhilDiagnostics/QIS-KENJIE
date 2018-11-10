@@ -4,7 +4,8 @@ include_once('../classes/pe.php');
 $pe = new pe;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$pe = $pe->fetch_data($id);
+	$tid = $_GET['tid'];
+	$pe = $pe->fetch_data($id,$tid);
 
 ?>
 <html>
@@ -61,20 +62,21 @@ include_once('doctorsidebar.php');
             	<div class="row">
 					<div class="col">
 						<label>SR No.: </label><br>
-						<input type="hidden" name="id" value="<?php echo $pe['id'] ?>">
-						<b><?php echo $pe['id'] ?></b>
+						<input type="hidden" name="id" value="<?php echo $pe['PatientID'] ?>">
+						<input type="hidden" name="tid" value="<?php echo $pe['TransactionID'] ?>">
+						<b><?php echo $pe['PatientID'] ?></b>
 					</div>
 					<div class="col">
 						<label>Name:</label><br>
-						<input type="hidden" name="lasnam" value="<?php echo $pe['lasnam'] ?>">
-						<input type="hidden" name="firnam" value="<?php echo $pe['firnam'] ?>">
-						<input type="hidden" name="midnam" value="<?php echo $pe['midnam'] ?>">
-						<p><b><?php echo $pe['lasnam'] ?>,<?php echo $pe['firnam'] ?> <?php echo $pe['midnam'] ?></b></p>
+						<input type="hidden" name="LastName" value="<?php echo $pe['LastName'] ?>">
+						<input type="hidden" name="FirstName" value="<?php echo $pe['FirstName'] ?>">
+						<input type="hidden" name="MiddleName" value="<?php echo $pe['MiddleName'] ?>">
+						<p><b><?php echo $pe['LastName'] ?>,<?php echo $pe['FirstName'] ?> <?php echo $pe['MiddleName'] ?></b></p>
 					</div>
 					<div class="col">
 						<label>Company Name: </label><br>
-						<input type="hidden" name="comnam" value="<?php echo $pe['comnam'] ?>">
-						<p><b><?php echo $pe['comnam'] ?></b></p>
+						<input type="hidden" name="CompanyName" value="<?php echo $pe['CompanyName'] ?>">
+						<p><b><?php echo $pe['CompanyName'] ?></b></p>
 					</div>
 				</div>
             </div>
@@ -192,7 +194,7 @@ include_once('doctorsidebar.php');
 					<div class="col-4">
 						<SELECT class="form-control" name="doc">
 							<OPTION value="FROILAN A. CANLAS, M.D.">FROILAN A. CANLAS, M.D.</OPTION>
-							<OPTION value="JOHN TANGLAO, M.D.">JOHN TANGLAO, M.D.</OPTION>
+							<OPTION value=""></OPTION>
 						</SELECT>
 					</div>
 				</div>

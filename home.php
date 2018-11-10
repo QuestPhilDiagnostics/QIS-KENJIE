@@ -14,7 +14,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if  ($row['class'] == "Doctor")
  {
-    $user_home->redirect('doctor/index.php');
+     $user_home->redirect('doctor/index.php');
  }
 if ($row['class'] == "Medical Services")
  { 
@@ -30,7 +30,7 @@ if ($row['class'] == "Admin")
  }
   if ($row['class'] == "CashierCASH")
  { 
-    $user_home->redirect('cashier/index.php');
+    $user_home->redirect('cashier/Cash.php');
  }
    if ($row['class'] == "CashierACCOUNT")
  { 

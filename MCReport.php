@@ -8,7 +8,8 @@ include_once('classes/pe.php');
 $pe = new pe;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$pe = $pe->fetch_data($id);
+	$tid = $_GET['tid'];
+	$pe = $pe->fetch_data($id, $tid);
 $patient = new Patient;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
@@ -16,31 +17,34 @@ if (isset($_GET['id'])){
 $lab = new lab;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$res = $lab->fetch_data($id);
+	$tid = $_GET['tid'];
+	$res = $lab->fetch_data($id,$tid);
 
 $rad = new rad;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$rad = $rad->fetch_data($id);
+	$tid = $_GET['tid'];
+	$rad = $rad->fetch_data($id,$tid);
 $qc = new qc;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$qc = $qc->fetch_data($id);
+	$tid = $_GET['tid'];
+	$qc = $qc->fetch_data($id,$tid);
 $printdate = date("m-d-Y");
 
-if ($qc['Patclass'] == "CLASS A - Physically Fit")
+if ($qc['MedicalClass'] == "CLASS A - Physically Fit")
 {
 	$patclass1 = "Class A - FIT TO WORK";
 }
-else if ($qc['Patclass'] == "CLASS B - Physically Fit but with minor condition curable within a short period of time, that will not adversely affect the workers efficiency")
+else if ($qc['MedicalClass'] == "CLASS B - Physically Fit but with minor condition curable within a short period of time, that will not adversely affect the workers efficiency")
 {
 	$patclass1 = "Class B - FIT TO WORK";
 }
-else if ($qc['Patclass'] == "CLASS C - With abnormal findings generally not accepted for employment.")
+else if ($qc['MedicalClass'] == "CLASS C - With abnormal findings generally not accepted for employment.")
 {
 	$patclass1 = "CLASS C - With abnormal findings generally not accepted for employment.";
 }
-else if ($qc['Patclass'] == "CLASS D - Unemployable")
+else if ($qc['MedicalClass'] == "CLASS D - Unemployable")
 {
 	$patclass1 = "Class D - UNEMPLOYABLE";
 }
@@ -49,7 +53,7 @@ else
 	$patclass1 = "PENDING";
 }
 
-$Notes = $qc['ot'];
+$Notes = $qc['Notes'];
 $HBSAG = $res['HBsAg'];
 $PT = $res['PregTest'];
 $METH = $res['Meth'];
@@ -297,21 +301,21 @@ $UriNotes = $res['UriOt'];
 		<div class="row">
 			<div class="col">
 				<center>
-					<p class="cert">I certify that I have examined <u><?php echo $data['lasnam'] ?>,<?php echo $data['firnam'] ?> <?php echo $data['midnam'] ?></u> and found applicant of <u><?php echo $data['comnam'] ?></u> with a classification of <u id="Class"><?php echo $patclass1 ?></u> as of <u><?php echo $qc['date'] ?></u>.</p>
+					<p class="cert">I certify that I have examined <u><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></u> and found applicant of <u><?php echo $data['CompanyName'] ?></u> with a classification of <u id="Class"><?php echo $patclass1 ?></u> as of <u><?php echo $qc['CreationDate'] ?></u>.</p>
 				</center>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-2"><p class="labelName">Others/Notes:</p></div>
-			<div class="col-sm-4"><p class="line" id="Notes"><?php echo $qc['ot']?></p></div>
+			<div class="col-sm-4"><p class="line" id="Notes"><?php echo $qc['Notes']?></p></div>
 			<div class="col-sm-2"><p class="labelName">Physician:</p></div>
-			<div class="col-sm-4"><p class="line"><?php echo $pe['doc'] ?></p></div>
+			<div class="col-sm-4"><p class="line"><?php echo $pe['Doctor'] ?></p></div>
 		</div>
 		<div class="row">
 			<div class="col-sm-2"><p class="labelName"></p></div>
 			<div class="col-sm-4"><p class="lineName"></p></div>
 			<div class="col-sm-2"><p class="labelName">License:</p></div>
-			<div class="col-sm-4"><p class="lineName"><?php echo $pe['lic'] ?></p></div>
+			<div class="col-sm-4"><p class="lineName"><?php echo $pe['License'] ?></p></div>
 		</div>				
 	</div>
 	</div>
@@ -497,7 +501,7 @@ $UriNotes = $res['UriOt'];
 		<br><br>
 			<div class="row">
 				<div class="col" style="padding-left: 0px"><center><span class="lineNameSig"><br><b><?php echo $res['Received'] ?></b></span></center></div>
-				<div class="col" style="padding-left: 0px"><center><span class="lineNameSig"><br><b><?php echo $qc['qc'] ?></b></span></center></div>
+				<div class="col" style="padding-left: 0px"><center><span class="lineNameSig"><br><b><?php echo $qc['QC'] ?></b></span></center></div>
 				<div class="col" style="padding-left: 0px"><center><span class="lineNameSig"><br><b><?php echo $res['Printed'] ?></b></span></center></div>
 			</div>
 			<div class="row">
@@ -513,19 +517,19 @@ $UriNotes = $res['UriOt'];
 	<div class="card-header"><center><b>RADIOLOGY REPORT</b></center></div>
 	<div class="card-block" style="height: 2.1in;">
 		<div class="row">
-			<div class="col"><p class="lineName" style="padding-top: 10px;"><?php echo $rad['com'] ?></p></div>
+			<div class="col"><p class="lineName" style="padding-top: 10px;"><?php echo $rad['Comment'] ?></p></div>
 		</div>
 		<div class="row">
 			<div class="col"><p class="labelName" style="padding-top: 10px;">IMPRESSION:</p></div>
 		</div>
 		<div class="row">
 			<div class="col-2"><p class="lineName" style="padding-top: 10px;"></p></div>
-			<div class="col-10"><p class="lineName" style="padding-top: 10px;"><?php echo $rad['imp'] ?></p></div>
+			<div class="col-10"><p class="lineName" style="padding-top: 10px;"><?php echo $rad['Impression'] ?></p></div>
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-6" style="padding-left: 0px"><center><span class="lineNameSig"><br><b><?php echo $rad['qa'] ?></b></span></center></div>
-			<div class="col-6" style="padding-left: 0px"><center><span class="lineNameSig"><br><b><?php echo $rad['rad'] ?></b></span></center></div>
+			<div class="col-6" style="padding-left: 0px"><center><span class="lineNameSig"><br><b><?php echo $rad['QA'] ?></b></span></center></div>
+			<div class="col-6" style="padding-left: 0px"><center><span class="lineNameSig"><br><b><?php echo $rad['Radiologist'] ?></b></span></center></div>
 		</div>
 		<div class="row">
 			<div class="col-6" style="padding-top: 0px"><center><span class="labelName"><b>Quality Assurance</b></span></center></div>

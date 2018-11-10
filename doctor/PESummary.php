@@ -54,16 +54,16 @@ include_once('doctorsidebar.php');
 					<?php foreach  ($pe as $pe) {  ?>
 					<tr>
 							<td>
-								<?php echo $pe['id']?>
+								<?php echo $pe['PatientID']?>
 							</td>
 							<td>
-								<?php echo $pe['date']?>
+								<?php echo $pe['TransactionDate']?>
 							</td>
 							<td>
-								<?php echo $pe['comnam']?>
+								<?php echo $pe['CompanyName']?>
 							</td>	
 							<td>
-								<?php echo $pe['lasnam']?>,<?php echo $pe['firnam']?> <?php echo $pe['midnam']?> 
+								<?php echo $pe['LastName']?>,<?php echo $pe['FirstName']?> <?php echo $pe['MiddleName']?> 
 							</td>
 							<td>
 								<?php echo $pe['skin']?>
@@ -90,13 +90,13 @@ include_once('doctorsidebar.php');
 								<?php echo $pe['find']?>
 							</td>
 							<td>
-								<?php echo $pe['doc']?>
+								<?php echo $pe['Doctor']?>
 							</td>
 							<td>
-								<?php echo $pe['lic']?>
+								<?php echo $pe['License']?>
 							</td>
 							<td>
-								<button type="button" class="btn btn-primary" onclick="document.location = 'PExamEDIT.php?id=<?php echo $pe['id']?>';">UPDATE RECORD</button>
+								<button type="button" class="btn btn-primary" onclick="document.location = 'PExamEDIT.php?id=<?php echo $pe['PatientID']?>&tid=<?php echo $pe['TransactionID']?>';">UPDATE RECORD</button>
 							</td>
 							
 							

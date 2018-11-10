@@ -4,7 +4,8 @@ include_once('../classes/pe.php');
 $pe = new pe;
 if (isset($_GET['id'])){
     $id = $_GET['id'];
-    $pe = $pe->fetch_data($id);
+    $tid = $_GET['tid'];
+    $pe = $pe->fetch_data($id, $tid);
 ?>
 <html>
 <head>
@@ -60,16 +61,17 @@ include_once('doctorsidebar.php');
             	<div class="row">
 					<div class="col col-md-auto">
 						<label>SR No.: </label><br>
-						<input type="hidden" name="id" value="<?php echo $pe['id'] ?>">
-						<b><?php echo $pe['id'] ?></b>
+						<input type="hidden" name="PatientID" value="<?php echo $pe['PatientID'] ?>">
+                        <input type="hidden" name="TransactionID" value="<?php echo $pe['TransactionID'] ?>">
+						<b><?php echo $pe['PatientID'] ?></b>
 					</div>
 					<div class="col">
 						<label>Name:</label><br>
-						<p><b><?php echo $pe['lasnam'] ?>,<?php echo $pe['firnam'] ?> <?php echo $pe['midnam'] ?></b></p>
+						<p><b><?php echo $pe['LastName'] ?>,<?php echo $pe['FirstName'] ?> <?php echo $pe['MiddleName'] ?></b></p>
 					</div>
 					<div class="col">
 						<label>Company Name: </label><br>
-						<p><b><?php echo $pe['comnam'] ?></b></p>
+						<p><b><?php echo $pe['CompanyName'] ?></b></p>
 					</div>
 				</div>
             </div>
@@ -164,7 +166,7 @@ include_once('doctorsidebar.php');
                         <label class="col-12 text-right">Physican:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['doc']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $pe['Doctor']?><br></b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -172,7 +174,7 @@ include_once('doctorsidebar.php');
                         <label class="col-12 text-right">License:</label><br>
                     </div>
                     <div class="col">
-                        <p style="padding-left: 20px;"><b><?php echo $pe['lic']?><br></b></p>
+                        <p style="padding-left: 20px;"><b><?php echo $pe['License']?><br></b></p>
                     </div>
                 </div>
             <hr>

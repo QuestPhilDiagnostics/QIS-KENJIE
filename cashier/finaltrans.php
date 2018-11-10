@@ -8,154 +8,262 @@ if (mysqli_connect_errno())
 else
 {
 //CASH
-	if (isset($_POST['CASH']))
-	{
+if (isset($_POST['CASH']))
+{
 	date_default_timezone_set("Asia/Kuala_Lumpur");
 	$date=date("Y-m-d H:i:s");
 	$id = $_POST['id'];
 	$idpatx = $_POST['idpatx'];
 
-	$selectITEMS=mysqli_query($conn, "SELECT * from temp_trans WHERE TransactionRef='$id'");
-	//insert to qpd_trans
-	while($checkITEMS = mysqli_fetch_assoc($selectITEMS))
+	if ($idpatx == '') 
 	{
-		$ItemID[] = $checkITEMS['ItemID'];
-		$ItemName[] = $checkITEMS['ItemName'];
-		$ItemDesc[] = $checkITEMS['ItemDescription'];
-		$ItemPrice[] = $checkITEMS['ItemPrice'];
-		$ItemQTY[] = $checkITEMS['ItemQTY'];
-		$Cashier[] = $checkITEMS['Cashier'];
-		$PatientID[] = $checkITEMS['PatientID'];
-		$GrandTotal[] = $checkITEMS['GrandTotal'];
-		$Discount[] = $checkITEMS['Discount'];
-		$PaidIn[] = $checkITEMS['PaidIn'];
-		$PaidOut[] = $checkITEMS['PaidOut'];
-		$TotalPrice[] = $checkITEMS['TotalPrice'];
-		$CompanyName= $checkITEMS['CompanyName'];
-		$Position = $checkITEMS['Position'];
-		$FirstName = $checkITEMS['FirstName'];
-		$MiddleName = $checkITEMS['MiddleName'];
-		$LastName = $checkITEMS['LastName'];
-		$Address = $checkITEMS['Address'];
-		$Birthdate = $checkITEMS['Birthdate'];
-		$Email = $checkITEMS['Email'];
-		$Age = $checkITEMS['Age'];
-		$Gender = $checkITEMS['Gender'];
-		$ContactNo = $checkITEMS['ContactNo'];
 
-	}
-	$sCashier = implode(", ",$Cashier);
-	$sGrandTotal = implode(", ",$GrandTotal);
-	$sDiscount = implode(", ",$Discount);
-	$sPaidIn = implode(", ",$PaidIn);
-	$sPaidOut = implode(", ",$PaidOut);
-	$comTotalPrice =  array_sum($ItemPrice);
-	$comItemID =  implode(", ",$ItemID);
-	$comItemName =  implode(", ",$ItemName);
-	$comItemDesc =  implode(", ",$ItemDesc);
-	$comItemPrice =  implode(",  ",$ItemPrice);
-	$comTotalQTY =  array_sum($ItemQTY);
+		$selectITEMS=mysqli_query($conn, "SELECT * from temp_trans WHERE TransactionRef='$id'");
+		//insert to qpd_trans
+		while($checkITEMS = mysqli_fetch_assoc($selectITEMS))
+		{
+			$ItemID[] = $checkITEMS['ItemID'];
+			$ItemName[] = $checkITEMS['ItemName'];
+			$ItemDesc[] = $checkITEMS['ItemDescription'];
+			$ItemPrice[] = $checkITEMS['ItemPrice'];
+			$ItemQTY[] = $checkITEMS['ItemQTY'];
+			$Cashier[] = $checkITEMS['Cashier'];
+			$PatientID[] = $checkITEMS['PatientID'];
+			$GrandTotal[] = $checkITEMS['GrandTotal'];
+			$Discount[] = $checkITEMS['Discount'];
+			$PaidIn[] = $checkITEMS['PaidIn'];
+			$PaidOut[] = $checkITEMS['PaidOut'];
+			$TotalPrice[] = $checkITEMS['TotalPrice'];
+			$CompanyName= $checkITEMS['CompanyName'];
+			$Position = $checkITEMS['Position'];
+			$FirstName = $checkITEMS['FirstName'];
+			$MiddleName = $checkITEMS['MiddleName'];
+			$LastName = $checkITEMS['LastName'];
+			$Address = $checkITEMS['Address'];
+			$Birthdate = $checkITEMS['Birthdate'];
+			$Email = $checkITEMS['Email'];
+			$Age = $checkITEMS['Age'];
+			$Gender = $checkITEMS['Gender'];
+			$ContactNo = $checkITEMS['ContactNo'];
+
+		}
+		$sCashier = implode(", ",$Cashier);
+		$sGrandTotal = implode(", ",$GrandTotal);
+		$sDiscount = implode(", ",$Discount);
+		$sPaidIn = implode(", ",$PaidIn);
+		$sPaidOut = implode(", ",$PaidOut);
+		$comTotalPrice =  array_sum($ItemPrice);
+		$comItemID =  implode(", ",$ItemID);
+		$comItemName =  implode(", ",$ItemName);
+		$comItemDesc =  implode(", ",$ItemDesc);
+		$comItemPrice =  implode(",  ",$ItemPrice);
+		$comTotalQTY =  array_sum($ItemQTY);
 
 
 
-	$TRANS = mysqli_query($conn, "INSERT INTO qpd_trans(
-					TransactionRef, 
-					TransactionType, 
-					PatientID, 
-					Cashier, 
-					ItemID, 
-					ItemName, 
-					ItemDescription, 
-					ItemPrice, 
-					TotalPrice, 
-					ItemQTY, 
-					GrandTotal, 
-					PaidIn, 
-					PaidOut, 
-					Discount) VALUES (
-					'".$id."',
-					'CASH',
-					'".$idpatx."',
-					'".$sCashier."', 
-					'".$comItemID."', 
-					'".$comItemName."', 
-					'".$comItemDesc."',
-					'".$comItemPrice."',
-					'".$comTotalPrice."',
-					'".$comTotalQTY."',
-					'".$sGrandTotal."',
-					'".$sPaidIn."',
-					'".$sPaidOut."',
-					'".$sDiscount."'
-				)");
+		$TRANS = mysqli_query($conn, "INSERT INTO qpd_trans(
+						TransactionRef, 
+						TransactionType, 
+						PatientID, 
+						Cashier, 
+						ItemID, 
+						ItemName, 
+						ItemDescription, 
+						ItemPrice, 
+						TotalPrice, 
+						ItemQTY, 
+						GrandTotal, 
+						PaidIn, 
+						PaidOut, 
+						Discount) VALUES (
+						'".$id."',
+						'CASH',
+						'".$idpatx."',
+						'".$sCashier."', 
+						'".$comItemID."', 
+						'".$comItemName."', 
+						'".$comItemDesc."',
+						'".$comItemPrice."',
+						'".$comTotalPrice."',
+						'".$comTotalQTY."',
+						'".$sGrandTotal."',
+						'".$sPaidIn."',
+						'".$sPaidOut."',
+						'".$sDiscount."'
+					)");
 
-			if ($TRANS === TRUE)
-			{
+				if ($TRANS === TRUE)
+				{
 
-				$TRANS1 = mysqli_query($conn, "INSERT INTO qpd_patient(
-					PatientRef, 
-					PatientType, 
-					CompanyName, 
-					Position, 
-					FirstName, 
-					MiddleName, 
-					LastName, 
-					Address, 
-					Birthdate, 
-					Email, 
-					Age, 
-					Gender, 
-					ContactNo) VALUES (
-					'".$id."',
-					'CASH',
-					'".$CompanyName."',
-					'".$Position."', 
-					'".$FirstName."', 
-					'".$MiddleName."', 
-					'".$LastName."',
-					'".$Address."',
-					'".$Birthdate."',
-					'".$Email."',
-					'".$Age."',
-					'".$Gender."',
-					'".$ContactNo."'
-				)");
+					$TRANS1 = mysqli_query($conn, "INSERT INTO qpd_patient(
+						PatientRef, 
+						PatientType, 
+						CompanyName, 
+						Position, 
+						FirstName, 
+						MiddleName, 
+						LastName, 
+						Address, 
+						Birthdate, 
+						Email, 
+						Age, 
+						Gender, 
+						ContactNo) VALUES (
+						'".$id."',
+						'CASH',
+						'".$CompanyName."',
+						'".$Position."', 
+						'".$FirstName."', 
+						'".$MiddleName."', 
+						'".$LastName."',
+						'".$Address."',
+						'".$Birthdate."',
+						'".$Email."',
+						'".$Age."',
+						'".$Gender."',
+						'".$ContactNo."'
+					)");
 
-					if($TRANS1 === TRUE)
-					{
-						$lastid1 = mysqli_insert_id($conn);
-						$UPDATETrans=mysqli_query($conn, "UPDATE qpd_trans SET PatientID = '$lastid1' WHERE TransactionRef='$id'");
-							if($UPDATETrans === TRUE){
-								$DeleteData=mysqli_query($conn, "DELETE FROM temp_trans WHERE TransactionRef = '$id'");
-								echo "<script>window.open('CashReceipt.php?id=$id&patid=$lastid1')</script>";
-								echo "<script>window.open('index.php','_self')</script>";
-							}
-							else
-							{
+						if($TRANS1 === TRUE)
+						{
+							$lastid1 = mysqli_insert_id($conn);
+							$UPDATETrans=mysqli_query($conn, "UPDATE qpd_trans SET PatientID = '$lastid1' WHERE TransactionRef='$id'");
+								if($UPDATETrans === TRUE){
+									$DeleteData=mysqli_query($conn, "DELETE FROM temp_trans WHERE TransactionRef = '$id'");
+									echo "<script>window.open('CashReceipt.php?id=$id&patid=$lastid1')</script>";
+									echo "<script>window.open('Cash.php','_self')</script>";
+								}
+								else
+								{
+									echo("Error description: " . mysqli_error($conn));
+								}
+
+						}
+						else
+						{
+
 								echo("Error description: " . mysqli_error($conn));
-							}
 
-					}
-					else
-					{
+						}
 
+
+
+				}
+				else
+				{
+
+					echo("Error description: " . mysqli_error($conn));
+
+				}
+
+
+		}
+		else
+		{
+
+		$selectITEMS=mysqli_query($conn, "SELECT * from temp_trans WHERE TransactionRef='$id'");
+		//insert to qpd_trans
+		while($checkITEMS = mysqli_fetch_assoc($selectITEMS))
+		{
+			$ItemID[] = $checkITEMS['ItemID'];
+			$ItemName[] = $checkITEMS['ItemName'];
+			$ItemDesc[] = $checkITEMS['ItemDescription'];
+			$ItemPrice[] = $checkITEMS['ItemPrice'];
+			$ItemQTY[] = $checkITEMS['ItemQTY'];
+			$Cashier[] = $checkITEMS['Cashier'];
+			$PatientID[] = $checkITEMS['PatientID'];
+			$GrandTotal[] = $checkITEMS['GrandTotal'];
+			$Discount[] = $checkITEMS['Discount'];
+			$PaidIn[] = $checkITEMS['PaidIn'];
+			$PaidOut[] = $checkITEMS['PaidOut'];
+			$TotalPrice[] = $checkITEMS['TotalPrice'];
+			$CompanyName= $checkITEMS['CompanyName'];
+			$Position = $checkITEMS['Position'];
+			$FirstName = $checkITEMS['FirstName'];
+			$MiddleName = $checkITEMS['MiddleName'];
+			$LastName = $checkITEMS['LastName'];
+			$Address = $checkITEMS['Address'];
+			$Birthdate = $checkITEMS['Birthdate'];
+			$Email = $checkITEMS['Email'];
+			$Age = $checkITEMS['Age'];
+			$Gender = $checkITEMS['Gender'];
+			$ContactNo = $checkITEMS['ContactNo'];
+
+		}
+		$sCashier = implode(", ",$Cashier);
+		$sGrandTotal = implode(", ",$GrandTotal);
+		$sDiscount = implode(", ",$Discount);
+		$sPaidIn = implode(", ",$PaidIn);
+		$sPaidOut = implode(", ",$PaidOut);
+		$comTotalPrice =  array_sum($ItemPrice);
+		$comItemID =  implode(", ",$ItemID);
+		$comItemName =  implode(", ",$ItemName);
+		$comItemDesc =  implode(", ",$ItemDesc);
+		$comItemPrice =  implode(",  ",$ItemPrice);
+		$comTotalQTY =  array_sum($ItemQTY);
+
+
+
+		$TRANS = mysqli_query($conn, "INSERT INTO qpd_trans(
+						TransactionRef, 
+						TransactionType, 
+						PatientID, 
+						Cashier, 
+						ItemID, 
+						ItemName, 
+						ItemDescription, 
+						ItemPrice, 
+						TotalPrice, 
+						ItemQTY, 
+						GrandTotal, 
+						PaidIn, 
+						PaidOut, 
+						Discount) VALUES (
+						'".$id."',
+						'CASH',
+						'".$idpatx."',
+						'".$sCashier."', 
+						'".$comItemID."', 
+						'".$comItemName."', 
+						'".$comItemDesc."',
+						'".$comItemPrice."',
+						'".$comTotalPrice."',
+						'".$comTotalQTY."',
+						'".$sGrandTotal."',
+						'".$sPaidIn."',
+						'".$sPaidOut."',
+						'".$sDiscount."'
+					)");
+
+				if ($TRANS === TRUE)
+				{
+
+					$TRANS1 = mysqli_query($conn, "UPDATE qpd_patient SET PatientRef = '".$id."' WHERE PatientID = '".$idpatx."'");
+
+						if($TRANS1 === TRUE)
+						{
+							$DeleteData=mysqli_query($conn, "DELETE FROM temp_trans WHERE TransactionRef = '$id'");
+							echo "<script>window.open('CashReceipt.php?id=$id&patid=$idpatx')</script>";
+							echo "<script>window.open('Cash.php','_self')</script>";
+						}
+						else
+						{
 							echo("Error description: " . mysqli_error($conn));
+						}
 
-					}
+				}
+				else
+				{
 
+					echo("Error description: " . mysqli_error($conn));
 
-
-			}
-			else
-			{
-
-				echo("Error description: " . mysqli_error($conn));
-
-			}
+				}
 
 
 
-	}
+		}
+}
+
 
 //ACCOUNT
 	else if(isset($_POST['ACCOUNT']))
@@ -220,7 +328,13 @@ else
 						ItemPrice, 
 						TotalPrice, 
 						ItemQTY, 
-						GrandTotal) VALUES (
+						GrandTotal,
+						Biller,
+						Referral,
+						LOE,
+						AN,
+						AC,
+						SID) VALUES (
 						'".$id."',
 						'ACCOUNT',
 						'".$lastid."',
@@ -231,7 +345,13 @@ else
 						'".$ItemPrice."',
 						'".$ItemPrice."',
 						'1',
-						'".$ItemPrice."'
+						'".$ItemPrice."',
+						'".$_POST['billto']."',
+						'".$_POST['reff']."',
+						'".$_POST['LOE']."',
+						'".$_POST['AN']."',
+						'".$_POST['AC']."',
+						'".$_POST['SID']."'
 						)");
 
 						if ($TRANS === TRUE) 
@@ -277,7 +397,13 @@ else
 						ItemPrice, 
 						TotalPrice, 
 						ItemQTY, 
-						GrandTotal) VALUES (
+						GrandTotal,
+						Biller,
+						Referral,
+						LOE,
+						AN,
+						AC,
+						SID) VALUES (
 						'".$id."',
 						'ACCOUNT',
 						'".$idpatient."',
@@ -288,7 +414,13 @@ else
 						'".$ItemPrice."',
 						'".$ItemPrice."',
 						'1',
-						'".$ItemPrice."'
+						'".$ItemPrice."',
+						'".$_POST['billto']."',
+						'".$_POST['reff']."',
+						'".$_POST['LOE']."',
+						'".$_POST['AN']."',
+						'".$_POST['AC']."',
+						'".$_POST['SID']."'
 						)");
 
 						if ($TRANS === TRUE) 

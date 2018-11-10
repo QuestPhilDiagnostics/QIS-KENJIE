@@ -1,5 +1,5 @@
 <?php
-$conn=mysqli_connect("localhost","root","","dbtest");
+$conn=mysqli_connect("localhost","root","","dbqis");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -8,6 +8,7 @@ if (mysqli_connect_errno())
 date_default_timezone_set("Asia/Kuala_Lumpur");
 
 $id=$_POST['id'];
+$tid=$_POST['tid'];
 $comnam=$_POST['comnam'];
 $firnam=$_POST['fn'];
 $midnam=$_POST['mn'];
@@ -21,37 +22,20 @@ $billto=$_POST['billto'];
 $LOE=$_POST['LOE'];
 $AN=$_POST['AN'];
 $AC=$_POST['AC'];
+$SID=$_POST['SID'];
 $comment=$_POST['comment'];
 $date=$_POST['date'];
 $PackName = $_POST['PackName'];
 $PackList = $_POST['PackList'];
 $PackPrice = $_POST['PackPrice'];
 
-	$sql = "UPDATE qpd_trans SET 
-		cust_comnam = '$comnam', 
-		firnam = '$firnam', 
-		midnam = '$midnam', 
-		lasnam = '$lasnam', 
-		cust_birdat = '$birdat', 
-		cust_age = '$age', 
-		cust_gen = '$gen',
-		connum = '$connum',
-		reff = '$reff', 
-		PackName = '$PackName', 
-		PackList = '$PackList', 
-		PackPrice = '$PackPrice', 
-		bill_to = '$billto', 
-		LOE = '$LOE', 
-		AN = '$AN', 
-		AC = '$AC', 
-		comment = '$comment',
-		date = '$date',
-		totalprice = '$PackPrice' WHERE id='$id'";
+	$sql = "UPDATE qpd_patient SET CompanyName = '$comnam', FirstName = '$firnam', MiddleName = '$midnam', LastName = '$lasnam', Birthdate = '$birdat', Age = '$age', Gender = '$gen',ContactNo = '$connum', DateUpdate = '$date' WHERE PatientID='$id'";
+	$sqli = "UPDATE qpd_trans SET Referral = '$reff', ItemName = '$PackName', ItemDescription = '$PackList', ItemPrice = '$PackPrice', Biller = '$billto', LOE = '$LOE', AN = '$AN', AC = '$AC', Notes = '$comment', TotalPrice = '$PackPrice', GrandTotal = '$PackPrice', SID = '$SID' WHERE PatientID='$id' AND TransactionID = '$tid'";
 		
-		if ($conn->query($sql) === TRUE) 
+		if ($conn->query($sql) === TRUE && $conn->query($sqli) === TRUE) 
 		{
 		echo "<script> alert('Record updated successfully') </script>";
-	    echo "<script>window.open('ForREPrint.php?id=$id' ,'_self')</script>";
+	    echo "<script>window.open('ForREPrintAccount.php?id=$id&tid=$tid' ,'_self')</script>";
 		} 
 		else 
 		{
@@ -60,3 +44,4 @@ $PackPrice = $_POST['PackPrice'];
 
 $conn->close();
 ?>
+

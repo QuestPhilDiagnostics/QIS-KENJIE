@@ -38,11 +38,9 @@ if (isset($_GET['patid'])){
 	    {
 	    	border-top: 2px solid #8c8b8b;
 	    	line-height: 1px;
-	    	margin-top: 0px;
-	    	margin-bottom: 0px;
 	    	margin-left: 0px;
 	    	margin: 0px;
-	    	width: 300px;
+	    	width: 80%;
 	    }
 	h3
 		{
@@ -101,6 +99,10 @@ if (isset($_GET['patid'])){
 		<div class="row">
 			<div class="col-2 text-right">DOB:</div>
 			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data1['Birthdate'] ?></b></div>
+		</div>
+		<div class="row">
+			<div class="col-2 text-right">Contact:</div>
+			<div class="col-8" style="padding-left: 0px;"><b><?php echo $data1['ContactNo'] ?></b></div>
 		</div>
 		<?php 
 		if ($data['Referral']=="") {
@@ -185,24 +187,15 @@ if (isset($_GET['patid'])){
 				</tr>
 				<tr>
 					<td style="width: 20%"></td>
-					<td style="width: 40%">Discount:</td>
-					<td style="width: 20%">₱:<?php echo $data['Discount'] ?></td>
-				</tr>
-				<tr>
-					<td style="width: 20%"></td>
-					<td style="width: 40%;font-size: 18px; font-weight: bolder;">Grand Total:</td>
+					<td style="width: 40%;font-size: 18px; font-weight: bolder;">Total Accounted:</td>
 					<td style="width: 20%;font-size: 18px; font-weight: bolder;">₱:<?php echo $data['GrandTotal'] ?></td>
 				</tr>
 				<tr>
 					<td style="width: 20%"></td>
-					<td style="width: 40%">Amount Tendered:</td>
-					<td style="width: 20%">₱:<?php echo $data['PaidIn'] ?></td>
+					<td style="width: 40%;font-size: 18px; font-weight: bolder;">Billed to:</td>
+					<td style="width: 20%;font-size: 18px; font-weight: bolder;"><?php echo $data['Biller'] ?></td>
 				</tr>
-				<tr>
-					<td style="width: 20%"></td>
-					<td style="width: 40%;font-size: 18px; font-weight: bolder;">Given Change:</td>
-					<td style="width: 20%;font-size: 18px; font-weight: bolder;">₱:<?php echo $data['PaidOut'] ?></td>
-				</tr>
+
 			</table>
 		</div>
 		<div class="row" style="padding: 15px;">

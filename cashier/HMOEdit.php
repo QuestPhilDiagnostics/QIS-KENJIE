@@ -4,7 +4,8 @@ include_once('../classes/hmo.php');
 $trans = new trans;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$trans = $trans->fetch_data($id);
+	$tid = $_GET['tid'];
+	$trans = $trans->fetch_data($id, $tid);
 
 ?>
 <!DOCTYPE html>
@@ -54,51 +55,54 @@ include_once('cashsidebar.php');
             <form action="HMOUpdate.php" method="post" autocomplete="off" enctype="multipart/form-data">
             	<div class="row">
 					<div class="col">
-						<input type="hidden"  name="id" class="form-control" value="<?php echo $trans['id']?>" required />
+						<input type="hidden"  name="id" class="form-control" value="<?php echo $trans['PatientID']?>" required />
+						<input type="hidden"  name="tid" class="form-control" value="<?php echo $trans['TransactionID']?>" required />
 						<label for=""> Company Name:</label>
-						<input type="text" name="comnam" class="form-control" value="<?php echo $trans['cust_comnam']?>" required/>
+						<input type="text" name="comnam" class="form-control" value="<?php echo $trans['CompanyName']?>" required/>
 						<label for="">First Name:</label>
-						<input type="text"  name="fn" class="form-control" value="<?php echo $trans['firnam']?>" required />
+						<input type="text"  name="fn" class="form-control" value="<?php echo $trans['FirstName']?>" required />
 						<label for=""> Middle Name:</label>
-						<input type="text"  name="mn" class="form-control" value="<?php echo $trans['midnam']?>"  />
+						<input type="text"  name="mn" class="form-control" value="<?php echo $trans['MiddleName']?>"  />
 						<label for=""> Last Name:</label>
-						<input type="text"  name="ln"  class="form-control" value="<?php echo $trans['lasnam']?>" required />
+						<input type="text"  name="ln"  class="form-control" value="<?php echo $trans['LastName']?>" required />
 						<label for=""> Birth Date:</label>
-						<input type="text"  name="bd" class="form-control" placeholder="MM-DD-YYYY" value="<?php echo $trans['cust_birdat']?>"  required />
+						<input type="text"  name="bd" class="form-control" placeholder="MM-DD-YYYY" value="<?php echo $trans['Birthdate']?>"  required />
 					</div>
 					<div class="col">
 						<label for="">Age:</label>
-						<input type="text"  name="age" id="age" class="form-control" onkeyup="AGE()" value="<?php echo $trans['cust_age']?>" required />
+						<input type="text"  name="age" id="age" class="form-control" onkeyup="AGE()" value="<?php echo $trans['Age']?>" required />
 						<label for="">Gender:</label>
-						<input type="text"  name="gen" class="form-control" value="<?php echo $trans['cust_gen']?>" required />
+						<input type="text"  name="gen" class="form-control" value="<?php echo $trans['Gender']?>" required />
 						<label for="">Contact No.:</label>
-						<input type="text"  name="cn" class="form-control" value="<?php echo $trans['connum']?>" />
+						<input type="text"  name="cn" class="form-control" value="<?php echo $trans['ContactNo']?>" />
 						<label for="">Bill to:</label>
-						<input type="text"  name="billto" id="billto" class="form-control" value="<?php echo $trans['bill_to']?>"  required/>
+						<input type="text"  name="billto" id="billto" class="form-control" value="<?php echo $trans['Biller']?>"  required/>
 						<label for="">Referred By:</label>
-						<input type="text"  name="reff" class="form-control" value="<?php echo $trans['reff']?>" />
+						<input type="text"  name="reff" class="form-control" value="<?php echo $trans['Referral']?>" />
 					</div>
 					<div class="col">
 						<label for="">Comment:</label>
-						<input type="text"  name="comment" class="form-control" value="<?php echo $trans['comment']?>"  />
+						<input type="text"  name="comment" class="form-control" value="<?php echo $trans['Notes']?>"  />
 						<label for="">LOE No.:</label>
 						<input type="text" id="LOE" name="LOE" class="form-control" value="<?php echo $trans['LOE']?>"/>
 						<label for="">Account No.:</label>
 						<input type="text" id="AN" name="AN" class="form-control" value="<?php echo $trans['AN']?>"/>
 						<label for="">Approval Code:</label>
 						<input type="text" id="AC" name="AC" class="form-control" placeholder="" value="<?php echo $trans['AC']?>"/>
-						<label for="">DATE:</label>
-						<input type="text"  name="date" class="form-control" value="<?php echo $trans['date']?>" />
+						<label for="">Senior ID:</label>
+						<input type="text"  name="SID" class="form-control" value="<?php echo $trans['SID']?>" />
 					</div>
 				</div>
 				<div class="row">
             		<div class="col">
+						<label for="">DATE:</label>
+						<input type="text"  name="date" class="form-control" value="<?php echo $trans['CreationDate']?>" />
 						<label for="">Package:</label>
-						<input type="text" name="PackName" class="form-control" value="<?php echo $trans['PackName']?>" required/>
+						<input type="text" name="PackName" class="form-control" value="<?php echo $trans['ItemName']?>" required/>
 						<label for="">Package Price:</label>
-						<input type="text" name="PackPrice" class="form-control" value="<?php echo $trans['PackPrice']?>" required/>
+						<input type="text" name="PackPrice" class="form-control" value="<?php echo $trans['ItemPrice']?>" required/>
 						<label for="">List of Items:</label>
-						<input type="text" name="PackList" class="form-control" value="<?php echo $trans['PackList']?>" required/>
+						<input type="text" name="PackList" class="form-control" value="<?php echo $trans['ItemDescription']?>" required/>
 					</div>
             	</div>
 				<div class="row">

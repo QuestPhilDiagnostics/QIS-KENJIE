@@ -80,7 +80,7 @@ else
 	}
 }
 ?>
-      <?php
+<?php
         include_once('../summarycon.php');
         
 
@@ -145,7 +145,67 @@ else
 
         	}
 
-         ?>
+?>
+<?php
+	
+	include_once('../summarycon.php');
+		if(isset($_POST['ADDNewRecord']))
+			{
+				$id=$_GET['id'];
+				$company=$_POST['company'];
+				$position=$_POST['position'];
+				$firstname=$_POST['firstname'];
+				$middlename=$_POST['middlename'];
+				$lastname=$_POST['lastname'];
+				$address=$_POST['address'];
+				$birthday=$_POST['birthday'];
+				$email=$_POST['email'];
+				$age=$_POST['age'];
+				$gender=$_POST['gender'];
+				$contact=$_POST['contact'];
+
+
+
+				$addtemp_patient = " UPDATE temp_trans SET
+										CompanyName = '$company',
+										Position = '$position',
+										FirstName = '$firstname',
+										MiddleName = '$middlename',
+										LastName = '$lastname',
+										Address = '$address',
+										Birthdate = '$birthday',
+										Email = '$email',
+										Age = '$age',
+										Gender = '$gender',
+										ContactNo = '$contact'
+										WHERE TransactionRef = '$id'";
+
+				if ($con->query($addtemp_patient) === TRUE) 
+			    {
+
+					// header("Refresh: 5; url=index.php?id=.$id");
+			        echo "<script> alert('Record Updated Successfully') </script>";
+			        //header('location: index.php?id='.$id);
+
+
+
+
+
+			    }
+			  else
+			    {
+			      echo "Error updating record: " . $con->error;
+			      echo "<script> alert('.$conn->error.') </script>";
+
+			    }
+
+
+
+		}
+
+?>
+
+
 <html>
 <head>
 	<meta charset="utf-8">
@@ -328,7 +388,7 @@ else
 </style>
 <body style="background-color: #ECF0F1;">
 <?php
-include_once('accountsidebar.php');
+include_once('cashsidebar.php');
 ?>
 <div class="container-fluid" >
 
@@ -414,10 +474,12 @@ include_once('accountsidebar.php');
    			<div class="row col" style="background-color: #ECF0F1; font-size: 19px;">
    				<form method="POST">
    				
-					<div class="row col" style="margin: 0px; height: 0px;" style="background-color: #ECF0F1;">
-						<input type="hidden" name="idpatx" style="width: 0px;" value="<?php if(isset($_POST['SEARCHPATX'])){
+					<div class="row">
+						<input type="hidden" name="idpatx" style="width: 0px;" value="<?php 
 
-							echo" $idpatient ";
+						if(isset($_POST['SEARCHPATX'])){
+
+							echo $idpatient;
 
 						}else if(isset($_POST['ADDNewRecord'])){
 
@@ -426,87 +488,81 @@ include_once('accountsidebar.php');
 							
 
 						} ?>">
-					
-				
-						<input type="text"  name="firstname" class="form-control" style="background-color: #ECF0F1; border: none; width: 350px; height: 20px; font-weight: bold; font-size: 19px; " value="<?php if (isset($_POST['SEARCHPATX'] )){
-
-							echo "".$firstname." ".$middlename." ".$lastname.""; 
-						}else{
-
-									$sql = mysqli_query($con, "SELECT * FROM temp_trans WHERE TransactionRef = $id ");
-										while($patdata = mysqli_fetch_array($sql))
-										{
-											$idpatient=$patdata['PatientID'];
-											$company=$patdata['CompanyName'];
-											$firstname=$patdata['FirstName'];
-											$middlename=$patdata['MiddleName'];
-											$lastname=$patdata['LastName'];
-											$contact=$patdata['ContactNo'];
-											
-											
-											
-
-							}
-							if(isset($_POST['ADDNewRecord'])){
-
-								echo "".$firstname." ".$middlename." ".$lastname."";
+						<div class="col-6">
+						<?php 
+						if(isset($_POST['ADDNewRecord']))
+						{
+							$sql = mysqli_query($con, "SELECT * FROM temp_trans WHERE TransactionRef = $id ");
+							while($patdata = mysqli_fetch_array($sql))
+							{
+								$firstname=$patdata['FirstName'];
+								$middlename=$patdata['MiddleName'];
+								$lastname=$patdata['LastName'];
 							}
 
-					
+							echo $firstname." ".$middlename." ".$lastname;
+						}
+						else if (isset($_POST['SEARCHPATX']))
+						{
+							echo $firstname." ".$middlename." ".$lastname; 
+						}
 
-						}?>" id="myInput" required readonly />
-						
-						<input type="text"  name="company" class="form-control" style="background-color: #ECF0F1; border: none; width: 150px; height: 20px; font-weight: bold; font-size: 19px;" value="<?php if (isset($_POST['SEARCHPATX'])){
-
-								echo $company; 
-
-						}else{
+						?>
+							
+						</div>
+						<div class="col-3">
+						<?php 
+						if(isset($_POST['ADDNewRecord']))
+						{
 
 							$sql = mysqli_query($con, "SELECT * FROM temp_trans WHERE TransactionRef = $id ");
-										while($patdata = mysqli_fetch_array($sql))
-										{
-											$idpatient=$patdata['PatientID'];
-											$company=$patdata['CompanyName'];
-											$firstname=$patdata['FirstName'];
-											$middlename=$patdata['MiddleName'];
-											$lastname=$patdata['LastName'];
-											$contact=$patdata['ContactNo'];
-											echo $company; 
-											
-
+							while($patdata = mysqli_fetch_array($sql))
+							{
+								$company=$patdata['CompanyName'];
 							}
 
-
-						} ?>" id="myInput" required readonly/>
-						
-						<input type="text" name="position" class="form-control" style="background-color: #ECF0F1; border: none; width: 150px; height: 20px; font-weight: bold; font-size: 19px;" value="<?php if (isset($_POST['SEARCHPATX'])){
-
-							echo $contact; 
-						}else{
-
-							$sql = mysqli_query($con, "SELECT * FROM temp_trans WHERE TransactionRef = $id ");
-										while($patdata = mysqli_fetch_array($sql))
-										{
-											$idpatient=$patdata['PatientID'];
-											$company=$patdata['CompanyName'];
-											$firstname=$patdata['FirstName'];
-											$middlename=$patdata['MiddleName'];
-											$lastname=$patdata['LastName'];
-											$contact=$patdata['ContactNo'];
-											echo $contact; 
-											
-
-							}
-
+							echo $company; 
 
 						}
-						?>" id="myInput" required readonly />
-			</form>
+						else if (isset($_POST['SEARCHPATX']))
+						{
+							echo $company; 
+						}
+						?>
+							
+						</div>
+						<div class="col-2">
+						<?php 
+						if (isset($_POST['ADDNewRecord']))
+						{
+							$sql = mysqli_query($con, "SELECT * FROM temp_trans WHERE TransactionRef = $id ");
+							while($patdata = mysqli_fetch_array($sql))
+							{
+								$contact=$patdata['ContactNo'];
+											
+							}
 
-					</div>	
+							echo $contact; 
+						}
+						else if (isset($_POST['SEARCHPATX']))
+						{
 
+							
+							echo $contact; 
+						}
+						?>
+							
+						</div>
+
+
+
+					</div>
 					
-				</div>
+				
+
+				</form>
+
+			</div>	
 
             	
 				<table class="table table-hover table-striped">
@@ -535,7 +591,11 @@ include_once('accountsidebar.php');
 		                $pack= mysqli_query($con, "SELECT * from qpd_items WHERE ItemID='".$_POST['Item']."'");
 		                $pack2= mysqli_fetch_array($pack);
 		               //echo "<script>alert('".$pack2[1]."')</script>";
-		                $query= mysqli_query($con, "INSERT into temp_trans (TransactionRef, ItemID, ItemName, ItemDescription, ItemQTY, ItemPrice, Cashier, GrandTotal) VALUES ('".$lastid."','".$pack2[0]."', '".$pack2[1]."', '".$pack2[3]."',1,'".$pack2[2]."',  '".$Cashier."','".$pack2[2]."')");
+		                $query= mysqli_query($con, 
+		                	"INSERT into temp_trans 
+		                	(TransactionRef, ItemID, ItemName, ItemDescription, ItemQTY, ItemPrice, Cashier, GrandTotal, TotalPrice) 
+		                	VALUES 
+		                	('".$lastid."','".$pack2[0]."','".$pack2[1]."','".$pack2[3]."', 1 ,'".$pack2[2]."','".$Cashier."','".$pack2[2]."','".$pack2[2]."')");
 		                echo "<meta http-equiv='refresh' content='0'>";
 		                //echo "<meta http-equiv='refresh' content='0;url=http:localhost/qis/cashier/index.php?id=$finalRef'/>";
 		                  }
@@ -565,7 +625,9 @@ include_once('accountsidebar.php');
 					                    	QTY: <input type='text' name='quantitytxt' id='quantitytxt' value='".strip_tags($query2[8])."' style='width: 90px; background-color: white; border: 1px solid;' >
 					                    	Discount %:<input type='number' name='discounttxt' id='discounttxt' value='".strip_tags($query2[21])."' style='width: 90px; background-color: #ECF0F1; border: 1px solid;'></td>";
 					                    echo "<td style='background-color:  #025AA5;'><input type='submit' class='btn btn-success' style='width: 140px; height: 30px;font-size: 12px; text-align: center;' name='btnaddquantity' id='btnaddquantity' value='Edit QTY/Discount' href = 'EditQuantity.php?id=".strip_tags($query2[5])."&amp;reference=".$lastid."';>
-					                    <button type='button' class='btn btn-danger' style='width: 100px; height: 30px;font-size: 12px; padding: 0px; margin-bottom:5px;' onclick='javascript:confirmationDelete($(this));return false;'' href = 'DeleteItem.php?id=".strip_tags($query2[0])."&amp;reference=".$lastid."';'><i class='far fa-trash-alt'></i>&nbsp;&nbsp;Remove</button></td>";
+					                    <button type='button' class='btn btn-danger' style='width: 100px; height: 30px;font-size: 12px; padding: 0px; margin-bottom:5px;' onclick='javascript:confirmationDelete($(this));return false;' href = 'DeleteItemCash.php?id=".strip_tags($query2[5])."&reference=".$lastid."';><i class='far fa-trash-alt'></i>&nbsp;&nbsp;Remove</button></td>";
+
+					                    echo strip_tags($query2[5])."/".$lastid;
 
 						            	echo "<td style='background-color:  #025AA5;'><input type='text' name='unitprice' id='unitprice' value='₱:".strip_tags($query2[17])."' style='width: 90px; background-color: #025AA5; border: none;' readonly></td>";
 
@@ -715,7 +777,7 @@ if (isset($_POST['btnPayout']))
 	<input type="submit" class="btn btn-primary" name="SAVE" style="margin-left: 10px; font-size: 18px; width: 200px; height: 40px;	" value="SAVE ONLY" />
 	</div>
 	<div class="col-2">
-	<form action="finaltrans.php?id=<?php echo $id ?>&idpatx=<?php echo $idpatient ?>" method="POST">
+	<form action="finaltrans.php" method="POST">
 		<button type="button" class="btn btn-primary" name="CASH" style="margin-left: 10px; font-size: 18px; width: 180px; height: 40px;" data-toggle="modal" data-target="#myModal">SAVE AND PRINT</button>
 		<input type="hidden"  name="id" class="form-control" value="<?php echo $id; ?>" />
 		<input type="hidden"  name="idpatx" class="form-control" value="<?php if(isset($_POST['SEARCHPATX'])){ echo $idpatient ;} ?>" />
@@ -739,7 +801,7 @@ if (isset($_POST['btnPayout']))
       	<div class="modal-header">
       		<br>
       	</div>
-        <form method="POST" action="finaltrans.php?id=<?php echo $id ?>&idpatx=<?php echo $idpatient ?>" >
+        <form method="POST" action="finaltrans.php" >
         	<div style="font-size: 20px; font-family: Century Gothic;">
     			<center>
  
@@ -813,7 +875,7 @@ if (isset($_POST['btnPayout']))
 				<label for="">Gender:</label>
 				<input type="text"  name="gender" class="form-control" value="" id="myInput" required  />
 				<label for="">Contact No.:</label>
-				<input type="text"  name="contact" class="form-control" value="" id="myInput" />	
+				<input type="text"  name="contact" class="form-control" value="" id="myInput" required />	
 			</div>
 			<div class="col">
 				<label for="">Email Address:</label>
@@ -840,70 +902,6 @@ if (isset($_POST['btnPayout']))
 
 
 </script>
-
-<?php
-	
-	include_once('../summarycon.php');
-		if(isset($_POST['ADDNewRecord']))
-			{
-				$id=$_GET['id'];
-				$company=$_POST['company'];
-				$position=$_POST['position'];
-				$firstname=$_POST['firstname'];
-				$middlename=$_POST['middlename'];
-				$lastname=$_POST['lastname'];
-				$address=$_POST['address'];
-				$birthday=$_POST['birthday'];
-				$email=$_POST['email'];
-				$age=$_POST['age'];
-				$gender=$_POST['gender'];
-				$contact=$_POST['contact'];
-
-
-
-				$addtemp_patient = " UPDATE temp_trans SET
-										CompanyName = '$company',
-										Position = '$position',
-										FirstName = '$firstname',
-										MiddleName = '$middlename',
-										LastName = '$lastname',
-										Address = '$address',
-										Birthdate = '$birthday',
-										Email = '$email',
-										Age = '$age',
-										Gender = '$gender',
-										ContactNo = '$contact'
-										WHERE TransactionRef = '$id'";
-
-				if ($con->query($addtemp_patient) === TRUE) 
-			    {
-
-					// header("Refresh: 5; url=index.php?id=.$id");
-			        echo "<script> alert('Record Updated Successfully') </script>";
-			        //header('location: index.php?id='.$id);
-
-
-
-
-
-			    }
-			  else
-			    {
-			      echo "Error updating record: " . $con->error;
-			      echo "<script> alert('.$conn->error.') </script>";
-
-			    }
-
-			    header("Refresh: 5; url=Cash.php?id=.$id");
-
-
-		}
-
-?>
-
-	
-												
-
 <script>
 // Get the modal
 var modal = document.getElementById('myModal');

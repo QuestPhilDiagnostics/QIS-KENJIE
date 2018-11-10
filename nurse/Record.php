@@ -15,31 +15,38 @@ if (isset($_GET['id'])){
 $His = new His;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$his = $His->fetch_data($id);
+	$tid = $_GET['tid'];
+	$his = $His->fetch_data($id, $tid);
 $vital = new vital;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$vit = $vital->fetch_data($id);
+	$tid = $_GET['tid'];
+	$vit = $vital->fetch_data($id, $tid);
 $pe = new pe;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$pe = $pe->fetch_data($id);
+	$tid = $_GET['tid'];
+	$pe = $pe->fetch_data($id, $tid);
 $lab = new lab;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$lab = $lab->fetch_data($id);
+	$tid = $_GET['tid'];
+	$lab = $lab->fetch_data($id, $tid);
 $rad = new rad;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$rad = $rad->fetch_data($id);
+	$tid = $_GET['tid'];
+	$rad = $rad->fetch_data($id, $tid);
 $qc = new qc;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$qc = $qc->fetch_data($id);
+	$tid = $_GET['tid'];
+	$qc = $qc->fetch_data($id, $tid);
 $trans = new trans;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$trans = $trans->fetch_data($id);
+	$tid = $_GET['tid'];
+	$trans = $trans->fetch_data($id, $tid);
 ?>
 <!DOCTYPE html>
 <html>
@@ -538,7 +545,7 @@ include_once('nursesidebar.php');
 <div class="row">
 <div class="col-md-10 offset-sm-1">
         <div class="card" style="border-radius: 0px; margin-top: 10px;">
-            <div class="card-header card-inverse card-info"><center><b>Physical Examinations</b></center></div>
+            <div class="card-header card-inverse card-info"><center><b>Laboratory Results</b></center></div>
             <div class="card-block">
             	<!-- CBC -->
             	<div class="row">
@@ -809,7 +816,7 @@ include_once('nursesidebar.php');
 	            		<center><b><?php echo $lab['Received'] ?></b></center>
 	            	</div>
 	            	<div class="col">
-	            		<center><b><?php echo $qc['qc'] ?></b></center>
+	            		<center><b><?php echo $qc['QC'] ?></b></center>
 
 	            	</div>
 	            	<div class="col">

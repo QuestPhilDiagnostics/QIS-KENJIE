@@ -1,10 +1,11 @@
 <?php
 include_once('../connection.php');
-include_once('../classes/patient.php');
-$patient = new Patient;
+include_once('../classes/trans.php');
+$trans = new trans;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$data = $patient->fetch_data($id);
+	$tid = $_GET['tid'];
+	$data = $trans->fetch_data($id, $tid);
 
 ?>
 <html>
@@ -63,23 +64,33 @@ include_once('nursesidebar.php');
            	<form action="MHVSINSERT.php" method="post" autocomplete="off" enctype="multipart/form-data">
             	<div class="row">
 					<div class="col col-md-auto">
-						<label>SR No.: </label><br>
+						<label>Patient ID.: </label><br>
 						<input type="hidden" name="id" value="<?php echo $data['PatientID'] ?>">
 						<b><?php echo $data['PatientID'] ?></b>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
+						<label>Transaction No.: </label><br>
+						<input type="hidden" name="tid" value="<?php echo $data['TransactionID'] ?>">
+						<b><?php echo $data['TransactionID'] ?></b>
+					</div>
+					<div class="col col-md-auto">
+						<label>Transaction Date.: </label><br>
+						<input type="hidden" value="<?php echo $data['TransactionDate'] ?>">
+						<b><?php echo $data['TransactionDate'] ?></b>
+					</div>
+					<div class="col col-md-auto">
 						<label>Name:</label><br>
 						<input type="hidden" name="lasnam" value="<?php echo $data['LastName'] ?>">
 						<input type="hidden" name="firnam" value="<?php echo $data['FirstName'] ?>">
 						<input type="hidden" name="midnam" value="<?php echo $data['MiddleName'] ?>">
 						<p><b><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></p>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
 						<label>Company Name: </label><br>
 						<input type="hidden" name="comnam" value="<?php echo $data['CompanyName'] ?>">
 						<p><b><?php echo $data['CompanyName'] ?></b></p>
 					</div>
-					<div class="col col-lg-2">
+					<div class="col col-md-auto">
 						<label>Gender:</label><br>
 						<p><b><?php echo $data['Gender'] ?></b></p>
 					</div>

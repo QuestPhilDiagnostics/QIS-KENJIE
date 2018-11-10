@@ -1,28 +1,11 @@
 <?php
 include_once('../connection.php');
-include_once('../classes/transVal.php');
-include_once('../classes/qc.php');
-include_once('../classes/lab.php');
-include_once('../classes/patient.php');
-$patient = new Patient;
-if (isset($_GET['id'])){
-	$id = $_GET['id'];
-	$data2 = $patient->fetch_data($id);
-$lab = new lab;
-if (isset($_GET['id'])){
-	$id = $_GET['id'];
-	$data = $lab->fetch_data($id);
-
-$qc = new qc;
-if (isset($_GET['id'])){
-	$id = $_GET['id'];
-	$data1 = $qc->fetch_data($id);
-
+include_once('../classes/labindustrial.php');
 $trans = new trans;
 if (isset($_GET['id'])){
 	$id = $_GET['id'];
-	$trans = $trans->fetch_data($id);
-
+	$tid = $_GET['tid'];
+	$data = $trans->fetch_data($id, $tid);
 ?>
 <html>
 <head>
@@ -66,7 +49,7 @@ if (isset($_GET['id'])){
 
 <body >
 <?php
-include_once('medsidebar.php');
+include_once('labsidebar.php');
 ?>
 <div class="container-fluid">
 <center><p style="font-size: 36px; font-family: 'Century Gothic';">Edit Laboratory Results</p></center>
@@ -78,21 +61,30 @@ include_once('medsidebar.php');
             <form action="LabIndustrialUPDATE.php" method="post" autocomplete="off" enctype="multipart/form-data">
             	<div class="row">
 					<div class="col col-md-auto">
-						<label>SR No.: </label><br>
-						<b><?php echo $trans['id'] ?></b>
-						<input type="hidden" name="id" value="<?php echo $data['id'] ?>">
+						<label>Patient ID.: </label><br>
+						<input type="hidden" name="id" value="<?php echo $data['PatientID'] ?>">
+						<b><?php echo $data['PatientID'] ?></b>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
+						<label>Transaction No.: </label><br>
+						<input type="hidden" name="tid" value="<?php echo $data['TransactionID'] ?>">
+						<b><?php echo $data['TransactionID'] ?></b>	
+					</div>
+					<div class="col col-md-auto">
 						<label>Name:</label><br>
-						<p><b><?php echo $data['lasnam'] ?>,<?php echo $data['firnam'] ?> <?php echo $data['midnam'] ?></b></p>
+						<input type="hidden" name="lasnam" value="<?php echo $data['LastName'] ?>">
+						<input type="hidden" name="firnam" value="<?php echo $data['FirstName'] ?>">
+						<input type="hidden" name="midnam" value="<?php echo $data['MiddleName'] ?>">
+						<p><b><?php echo $data['LastName'] ?>,<?php echo $data['FirstName'] ?> <?php echo $data['MiddleName'] ?></b></p>
 					</div>
-					<div class="col">
+					<div class="col col-md-auto">
 						<label>Company Name: </label><br>
-						<p><b><?php echo $data['comnam'] ?></b></p>
+						<input type="hidden" name="comnam" value="<?php echo $data['CompanyName'] ?>">
+						<p><b><?php echo $data['CompanyName'] ?></b></p>
 					</div>
-					<div class="col col-lg-2">
+					<div class="col col-md-auto">
 						<label>Gender:</label><br>
-						<p><b><?php echo $data2['gen'] ?></b></p>
+						<p><b><?php echo $data['Gender'] ?></b></p>
 					</div>
 				</div>
             </div>
@@ -100,24 +92,24 @@ include_once('medsidebar.php');
     </div>	
 </div>
 <div class="row">
-    <div class="col-md-10 offset-sm-1">
+   <!--  <div class="col-md-10 offset-sm-1">
         <div class="card" style="border-radius: 0px; margin-top: 10px;">
             <div class="card-header card-inverse card-info"><center><b>PATIENT PACKAGE</b></center></div>
             <div class="card-block">
             	<div class="row">
             		<div class="col col-md-auto">
-            			Package: <p><b><?php echo $trans['PackName'] ?></b></p>
+            			Package: <p><b><?php echo $data['PackName'] ?></b></p>
             		</div>
             		<div class="col col-md-auto">
-            			Description: <p><b><?php echo $trans['PackList'] ?></b></p>
+            			Description: <p><b><?php echo $data['PackList'] ?></b></p>
             		</div>
             		<div class="col col-lg-2">
-            			Transaction: <p><b><?php echo $trans['trans_type'] ?></b></p>
+            			Transaction: <p><b><?php echo $data['trans_type'] ?></b></p>
             		</div>
 				</div>
             </div>
         </div>
-    </div>	
+    </div>	 -->
 </div>
 <div class="row">
     <div class="col-md-10 offset-sm-1">
@@ -391,7 +383,7 @@ include_once('medsidebar.php');
 	            		<input type="text" name="Received" class="form-control" placeholder=" Medical Technologist" value="<?php echo $data['Received'] ?>">
 	            	</div>
 	            	<div class="col">
-	            		<input type="text" name="qc" class="form-control" placeholder=" Quality Control" value="<?php echo $data1['qc'] ?>">
+	            		<input type="text" name="qc" class="form-control" placeholder=" Quality Control" value="<?php echo $data['QC'] ?>">
 	            	</div>
 	            	<div class="col">
 	            		<input type="text" name="Printed" class="form-control" value="<?php echo $data['Printed'] ?>" >
@@ -408,6 +400,6 @@ include_once('medsidebar.php');
 </div>
 	
 </div>
-<?php }}}} ?>
+<?php }?>
 </body>
 </html>

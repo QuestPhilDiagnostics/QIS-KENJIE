@@ -1,19 +1,14 @@
 <?php
-$conn=mysqli_connect("localhost","root","","dbtest");
+$conn=mysqli_connect("localhost","root","","dbqis");
 // Check connection
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 date_default_timezone_set("Asia/Kuala_Lumpur");
+
 $id=$_POST['id'];
-$result = $conn->query("SELECT * FROM qpd_labresult WHERE id ='".$id."'");
-if($result->num_rows == 0) 
-{
-$firnam=$_POST['firnam'];
-$midnam=$_POST['midnam'];
-$lasnam=$_POST['lasnam'];
-$comnam=$_POST['comnam'];
+$tid=$_POST['tid'];
 $WhiteBlood=$_POST['WhiteBlood'] ? $_POST['WhiteBlood'] : "N/A";
 $Hemoglobin=$_POST['Hemoglobin'] ? $_POST['Hemoglobin'] : "N/A";
 $HemoNR=$_POST['HemoNR'] ? $_POST['HemoNR'] : "N/A";
@@ -52,8 +47,13 @@ $Received=$_POST['Received'];
 $Printed=$_POST['Printed'];
 $qc=$_POST['qc'];
 
-$sqlinsert= "INSERT INTO qpd_labresult (id, firnam, midnam, lasnam, comnam, WhiteBlood, Hemoglobin, HemoNR, Hematocrit, HemaNR, Neutrophils, Lymphocytes, Monocytes, CBCOt, Meth, Tetra, DT, HBsAg, PregTest, SeroOt, FecColor, FecCon, FecMicro, FecOt, UriColor, UriTrans, UriPh, UriSp, UriPro, UriGlu, RBC, WBC, ECells, MThreads, Bac, Amorph, CoAx, UriOt, date, Received, Printed) values ('$id', '$firnam', '$midnam', '$lasnam', '$comnam' ,'$WhiteBlood', '$Hemoglobin', '$HemoNR','$Hematocrit', '$HemaNR', '$Neutrophils', '$Lymphocytes', '$Monocytes', '$CBCOt','$Meth', '$Tetra', '$DT', '$HBsAg', '$PregTest', '$SeroOt','$FecColor', '$FecCon', '$FecMicro' , '$FecOt','$UriColor', '$UriTrans', '$UriPh', '$UriSp', '$UriPro', '$UriGlu', '$RBC', '$WBC', '$ECells', '$MThreads', '$Bac', '$Amorph', '$CoAx', '$UriOt', '$date', '$Received', '$Printed')";
-$sqlinsert1= "INSERT INTO qpd_class(id, firnam, midnam, lasnam, comnam,qc, date) VALUES ('$id', '$firnam', '$midnam', '$lasnam', '$comnam' ,'$qc', '$date')";
+$sql = "SELECT * FROM qpd_labresult WHERE PatientID ='$id' AND TransactionID = '$tid'";
+$result=mysqli_query($conn,$sql);
+if($rowcount=mysqli_num_rows($result) == 0) 
+{
+
+$sqlinsert= "INSERT INTO qpd_labresult (PatientID, TransactionID, WhiteBlood, Hemoglobin, HemoNR, Hematocrit, HemaNR, Neutrophils, Lymphocytes, Monocytes, CBCOt, Meth, Tetra, DT, HBsAg, PregTest, SeroOt, FecColor, FecCon, FecMicro, FecOt, UriColor, UriTrans, UriPh, UriSp, UriPro, UriGlu, RBC, WBC, ECells, MThreads, Bac, Amorph, CoAx, UriOt, CreationDate, Received, Printed) values ('$id','$tid','$WhiteBlood', '$Hemoglobin', '$HemoNR','$Hematocrit', '$HemaNR', '$Neutrophils', '$Lymphocytes', '$Monocytes', '$CBCOt','$Meth', '$Tetra', '$DT', '$HBsAg', '$PregTest', '$SeroOt','$FecColor', '$FecCon', '$FecMicro' , '$FecOt','$UriColor', '$UriTrans', '$UriPh', '$UriSp', '$UriPro', '$UriGlu', '$RBC', '$WBC', '$ECells', '$MThreads', '$Bac', '$Amorph', '$CoAx', '$UriOt', '$date', '$Received', '$Printed')";
+$sqlinsert1= "INSERT INTO qpd_class(PatientID, TransactionID, QC, CreationDate) VALUES ('$id', '$tid', '$qc', '$date')";
 
   if ($conn->query($sqlinsert) === TRUE && $conn->query($sqlinsert1) === TRUE) 
   {
@@ -68,7 +68,8 @@ $sqlinsert1= "INSERT INTO qpd_class(id, firnam, midnam, lasnam, comnam,qc, date)
 else 
 {
   // do other stuff...
-  echo "Patient's Record Exist. Please use update instead";
+ echo "Patient's Record Exist. Please use update instead";
+  echo "Error updating record: " . $conn->error;
 }
 
 

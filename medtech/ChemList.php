@@ -24,7 +24,7 @@ $patients = $patient->fetch_all();
 	</head>
 <body>
 <?php
-include_once('medsidebar.php');
+include_once('labsidebar.php');
 ?>
 <div class="container" style="margin-top: 10px;">
 	<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
