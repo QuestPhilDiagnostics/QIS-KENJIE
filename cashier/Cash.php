@@ -671,6 +671,7 @@ include_once('cashsidebar.php');
 		<p><input type="number" value="<?php echo $totalamount;?>" readonly style="background-color: #ECF0F1; border: none; padding-left: 50px;"></p>
 		<input type="hidden" name="txtSubTotal" id="txtSubTotal" value="<?php echo $totalamount;?>"><br>
         <p style="padding-left: 50px;"><input type="number" name="txtAmountRes" id="txtAmountRes" class="" style="width: 100px; height: 30px;"></p>
+        <!-- <input type="text" name="txtAmountRes" id="txtAmountRes" value="<?php echo $AmountRes;?>" class="" style="width: 100px; height: 30px;"> -->
 	</div>
 	
 
@@ -688,6 +689,7 @@ include_once('cashsidebar.php');
 	</div>
 	<div class="col-2">
 		<p><input type="text" name="txtTotal" id="txtTotal" readonly="" value="₱:<?php echo $totalamount; ?>" style="background-color: #ECF0F1; border: none; color: red; font-size: 20px; font-weight: bold;padding-left: 50px;"></p>
+
             	<?php 
 		        include_once('../summarycon.php');
 
@@ -702,16 +704,9 @@ include_once('cashsidebar.php');
 				error_reporting(0);
 			
 				?>
-			<p style="padding-left: 50px;"><input type="text" id="" value="₱:<?php 
-            	
-       		
-
-            		echo $sChange12;
-
-            	 
-            	?> " style="background-color: #ECF0F1; width: 90px; border: none; font-weight: bolder; font-size: 20px;"  readonly></p>
-
-
+			<p style="padding-left: 50px;"><input type="text" id="" value="₱:<?php echo $sChange12;?> " style="background-color: #ECF0F1; width: 90px; border: none; font-weight: bolder; font-size: 20px;"  readonly></p>
+			<p value="₱:<?php echo $AmountRes;?> "></p>
+			
 
 	</div>
 	
@@ -789,9 +784,6 @@ if (isset($_POST['btnPayout']))
 </div>
 
 
-
-
-
 	  <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -814,16 +806,16 @@ if (isset($_POST['btnPayout']))
             		<input type="number" name="txtAmountRes"  required="required" value="<?php echo $sChange12 ?>" style="width: 110px; margin: 10px; border: none;" readonly>
             		<br>
             		<input class="btn btn-primary" type="submit" name="CASH" value="OK" onclick="return RefreshWindow();" style="width: 110px; height: 50px; margin: 10px; font-size: 15px;">
+
             		<input type="hidden"  name="id" class="form-control" value="<?php echo $id; ?>" />
 					<input type="hidden"  name="idpatx" class="form-control" value="<?php if(isset($_POST['SEARCHPATX'])){ echo $idpatient ;} ?>" />
-					</center>
+				</center>
 
 					<script>
 						
-
 						function RefreshWindow()
 						{
-						         window.location.reload(true);
+						 	window.location.reload(true);
 						}
 
 					</script>
@@ -875,7 +867,7 @@ if (isset($_POST['btnPayout']))
 				<label for="">Gender:</label>
 				<input type="text"  name="gender" class="form-control" value="" id="myInput" required  />
 				<label for="">Contact No.:</label>
-				<input type="text"  name="contact" class="form-control" value="" id="myInput" required />	
+				<input type="text"  name="contact" class="form-control" value="" id="myInput" />	
 			</div>
 			<div class="col">
 				<label for="">Email Address:</label>

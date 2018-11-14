@@ -29,8 +29,8 @@ if (isset($_GET['patid'])){
 	<style type="text/css">
 	body
 		{
-			font-family: "Century Gothic";
-			font-size: 14px;
+			font-family: "Agency FB";
+			font-size: 16px;
 			padding: 0px;
 			margin: 0px;
 		}

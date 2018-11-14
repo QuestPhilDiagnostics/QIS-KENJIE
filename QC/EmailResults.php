@@ -58,7 +58,6 @@ include_once('qcsidebar.php');
 	<div class="row">
 	  <div class="col-8">
 		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-
 	        			<thead>
 							<th wrap>Checklist</th>
 							<th>Company Name</th>
@@ -70,12 +69,11 @@ include_once('qcsidebar.php');
 	                    	<th nowrap>Transaction Date</th>
 						</thead>
 						<?php foreach  ($patients as $patient) {  ?>
-						
 						<tr>	
 								<td>
-									<div class="form-check" style="padding-left: 10px;">
-									  <input class="check" type="checkbox" value="1" id="defaultCheck1" style=" height: 30px; width: 30px;">
-									</div>
+								<div class="form-check" style="padding-left: 10px;">
+									<input class="check" type="checkbox" value="1" id="defaultCheck1" style=" height: 30px; width: 30px;" onclick="window.open('../ResultPDF.php?id=<?php echo $patient['PatientID']?>&tid=<?php echo $patient['TransactionID']?>');">
+								</div>
 								</td>
 								<td>
 									<?php echo $patient['CompanyName']?>
@@ -101,6 +99,7 @@ include_once('qcsidebar.php');
 
 						</tr>
 						<?php  } 	?> 
+
 	    </table>
 	  </div>
 	  <div class="col-4">
@@ -111,7 +110,7 @@ include_once('qcsidebar.php');
 
 					<div class="col">
 						<div class="form-check" style="padding-left: 10px;">
-						  <input class="form-check-input" type="checkbox" value=""  id="checkAll" style=" height: 30px; width: 30px;">
+						  <input class="form-check-input" type="checkbox" value="2"  id="checkAll" style=" height: 30px; width: 30px;" >
 						  <label class="form-check-label" for="checkAll">
 						    Select All / Deselect
 						  </label>
@@ -154,32 +153,41 @@ include_once('qcsidebar.php');
 						}
 						</script>
 						<form action="" method="post" name="formid" id="formid" class="pre-alert-email-form">
-						  <div class="email-list">
-						    <div class="email-list-item" id="inph">
-						      <input type="hidden" name="email[]" value="" /><b></b>
-						    </div>
-						  </div>
 						  <div class="contents">
-						    <h4 class="toggle-additional-emails">Recipient's Email</h4>
+						    <h6 class="toggle-additional-emails">To:</h6>
 						    <div class="additional-emails">
 						      <div class="form-item">
 						        <span class="form-body">
 						          <input type="email" multiple pattern="^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4},*[\W]*)+$" name="preAlertEmail" id="preAlertEmail" class="form-control" placeholder="Enter Valid Email..." style="padding-left: 0px;"/>
 						        </span>
 						      </div>
-						        <input type="button" class="button left add add-email" id="addEmail" name="addEmail" value="Add email" />
+							  <div class="email-list">
+							    <div class="email-list-item" id="inph">
+							      <input type="hidden" name="email[]" value="" required/><b></b>
+							    </div>
+							  </div>
+						        
 						    </div>
 						  </div>
-						</form>
-
+						
+					</div>
+					<div class="col-sm-auto" style="padding-top: 25px; " >
+						<input type="button" class="btn-primary left add add-email" id="addEmail" name="addEmail" value="Add email"  style="height: 35px" />
+					</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="col">
+						<h6>Subject:</h6>
+						<input type="text" class="form-control" name="eSubject" placeholder="Enter Email Subject..." style="padding-left: 0px" Required/>
 					</div>
 				</div>
+				<hr>
 				<div class="row">
 					<div class="col">
 						<button class="btn-primary" type="submit">SEND</button>
 					</div>
 				</div>
-
 
 
 				</form>
@@ -214,7 +222,21 @@ include_once('qcsidebar.php');
     table.buttons().container()
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
 } );	
+
+
 </script>
+<!-- <script type="text/javascript">
+	
+	function Generate()
+	{
+		var id = document.getElementById("id").value;
+		var tid = document.getElementById("tid").value;
+
+		window.open('../ResultPDF.php?id='+id+'&tid='_tid,'_blank');
+
+
+	}
+</script> -->
 
 
 

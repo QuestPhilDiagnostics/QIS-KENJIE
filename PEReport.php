@@ -67,10 +67,26 @@ $find = $pex['find'];
 ?>
 
 <!DOCTYPE html>
-<html>
-<head>
+<input type="button" value="save" onclick="javascript:saveAspdf()"/>
+<html id="thishtml">
+<head >
 	<title>Physical Examination Report</title>
 	<link href="source/bootstrap4/css/bootstrap.min.css" media="all" rel="stylesheet"/>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+	<script type="text/javascript">
+
+
+		function saveAspdf() {
+		var pdf = new jsPDF('p', 'mm', [297, 210]);
+		pdf.addHTML(document.body,function() {
+		    pdf.save('PEreport.pdf');
+		});
+		}
+
+
+	</script>
 	<script type="text/javascript">
 	window.onload = function() 
 	{ 
@@ -338,7 +354,7 @@ $find = $pex['find'];
 		<img src="assets/QPDHeader.jpg" height="100px" width="100%">
 	</div>
 </div>
-<div class="row">
+<div class="row" id="testhtml">
 	<div class="col-sm-12">
 		<div class="card" style="border-radius: 0px; margin-top: 10px;">
 		<div class="card-header"><center><b>QUEST PHIL DIAGNOSTICS MEDICAL EXAMINATION REPORT</b></center></div>
