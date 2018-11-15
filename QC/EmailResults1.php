@@ -24,6 +24,7 @@ $patients = $sendEmail->fetch_all();
 		<link rel="stylesheet" type="text/css" href="../source/CDN/buttons.bootstrap4.min.css	">
 		<link rel="stylesheet" href="multiple-emails.css">
 		<script src="multiple-emails.js"></script>
+		
 
 	</head>
 	<style type="text/css" media="all">
@@ -146,11 +147,11 @@ include_once('qcsidebar.php');
 					</div>
 					</form>
 				</div>
-				<form method="POST" enctype="multipart/form-data">
+				<form method="POST"  enctype="multipart/form-data">
 				<div class="row">
 					<div class="col">
 						<h6>Attach Result:</h6>
-						<input type="file" name="file" multiple/>
+						<input type="file" name="file" id="file" multiple/>
 						<br>
 						<br>
 					</div>
@@ -158,19 +159,19 @@ include_once('qcsidebar.php');
 				<div class="row">
 					<div class="col">
 						<h6>Recipient:</h6>
-						<input type="email" class="form-control" name="recipient" placeholder="Enter Email Subject..." style="padding-left: 0px" Required/>
+						<input type="email" class="form-control" name="recipient" id="recipient" placeholder="Enter Email Subject..." style="padding-left: 0px" Required/>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col">
 						<h6>Subject:</h6>
-						<input type="text" class="form-control" name="subject" placeholder="Enter Email Subject..." style="padding-left: 0px" Required/>
+						<input type="text" class="form-control" name="subject" id="subject" placeholder="Enter Email Subject..." style="padding-left: 0px" Required/>
 					</div>
 				</div>
 				<hr>
 				<div class="row">
 					<div class="col">
-						<input type="submit" name="btnsend" id="save" class="btn-primary" value="Send">
+						<input type="submit" name="btnsend" id="save" class="btn-primary" value="Send"><img id="loader" src="https://res.cloudinary.com/sivadass/image/upload/v1498134389/icons/loader.gif" alt="loading">
 						<div id="loading"></div>
 					</div>
 				</div>
@@ -186,7 +187,9 @@ include_once('qcsidebar.php');
 	</div>
 </div>
 
-<script type="text/javascript">
+
+
+<!-- <script type="text/javascript">
 	
 	$('#save').click(function () {
     // add loading image to div
@@ -210,11 +213,10 @@ include_once('qcsidebar.php');
 
 
 </script>
-
+ -->
 
 
 <?php
-
 
 	# code...
 
@@ -269,7 +271,8 @@ try {
 	//echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 }
 
-?>
+?> 
+
 
 <script>
 	
